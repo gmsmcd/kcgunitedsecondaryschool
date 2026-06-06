@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>রজত জয়ন্তী ২০২৭ - KCG United High School</title>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --navy-900: #041529;
+            --navy-800: #0a2744;
+            --navy-700: #0f3a5f;
+            --navy-600: #154d7a;
+            --navy-500: #1b6096;
+            --navy-400: #3a8fc7;
+            --navy-300: #7ab8e0;
+            --navy-200: #b0d7f0;
+            --navy-100: #d5eaf7;
+            --navy-50: #eef5fb;
+            --gold-600: #9a7b1a;
+            --gold-500: #b8942a;
+            --gold-400: #d4af37;
+            --gold-300: #e6c84d;
+            --gold-200: #f0dc7a;
+            --gold-100: #faf0c8;
+            --emerald-500: #10b981;
+            --rose-500: #f43f5e;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Noto Sans Bengali', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f0f4fa;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--navy-400); border-radius: 4px; }
+
+        /* ══════════════════════════════════════
+           হেডার
+        ══════════════════════════════════════ */
+        .app-header {
+            position: relative;
+            background: linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 25%, var(--navy-700) 55%, var(--navy-600) 85%, var(--navy-500) 100%);
+            padding: 24px 20px 28px;
+            border-radius: 0 0 32px 32px;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        /* হেডার ব্যাকগ্রাউন্ড শাইমার */
+        .app-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 80%, rgba(212,175,55,0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 500px 300px at 80% 20%, rgba(212,175,55,0.07) 0%, transparent 50%),
+                radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 40%);
+            animation: headerShimmer 12s ease-in-out infinite alternate;
+        }
+        @keyframes headerShimmer {
+            0%   { opacity: 1; transform: scale(1) translate(0, 0); }
+            100% { opacity: 0.85; transform: scale(1.05) translate(-2%, 2%); }
+        }
+
+        /* জ্যামিতিক প্যাটার্ন */
+        .app-header::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(212,175,55,0.06) 1px, transparent 1px);
+            background-size: 16px 16px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* ভাসমান কণা */
+        .particle {
+            position: absolute; border-radius: 50%; pointer-events: none; opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0%   { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+            8%   { opacity: .6; transform: translateY(-30px) scale(0.8) rotate(30deg); }
+            50%  { opacity: .3; }
+            100% { transform: translateY(-300px) scale(1.2) rotate(180deg); opacity: 0; }
+        }
+
+        /* স্কুল লোগো সার্কেল */
+        .school-logo {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold-400), var(--gold-300));
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.35), inset 0 1px 2px rgba(255,255,255,0.3);
+            flex-shrink: 0;
+        }
+
+        /* পরিসংখ্যান পিল */
+        .stat-pill {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 18px;
+            padding: 16px 8px;
+            text-align: center;
+            transition: transform .2s, background .2s;
+            cursor: pointer;
+        }
+        .stat-pill:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.12);
+        }
+        .stat-num {
+            font-size: 24px; font-weight: 900; line-height: 1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .stat-label {
+            font-size: 10px; color: rgba(255,255,255,0.55);
+            margin-top: 5px; font-weight: 500; letter-spacing: 0.3px;
+        }
+        .stat-icon {
+            width: 28px; height: 28px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 6px;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+           কন্টেন্ট এরিয়া
+        ══════════════════════════════════════ */
+        .content-area {
+            padding: 20px 16px 100px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ══════════════════════════════════════
+           অ্যাকশন কার্ড
+        ══════════════════════════════════════ */
+        .action-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 24px 16px;
+            box-shadow: 0 4px 24px rgba(4,21,41,0.06), 0 1px 3px rgba(4,21,41,0.04);
+            transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(4,21,41,0.04);
+        }
+        .action-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            border-radius: 22px 22px 0 0;
+        }
+        .action-card:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 12px rgba(4,21,41,0.08);
+        }
+        .action-card.gold-top::before { background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); }
+        .action-card.navy-top::before { background: linear-gradient(90deg, var(--navy-700), var(--navy-400)); }
+
+        .action-icon {
+            width: 56px; height: 56px; border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 12px; font-size: 22px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        /* ══════════════════════════════════════
+           ইনফো কার্ড
+        ══════════════════════════════════════ */
+        .info-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 4px 24px rgba(4,21,41,0.05);
+            border: 1px solid rgba(4,21,41,0.04);
+        }
+        .info-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 13px 0;
+            border-bottom: 1px solid #f3f6fb;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+           রেজিস্ট্রেশন কার্ড
+        ══════════════════════════════════════ */
+        .reg-card {
+            width: 350px; max-width: 100%;
+            background: #fff; border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(4,21,41,0.20), 0 4px 12px rgba(4,21,41,0.08);
+            border: 2.5px solid var(--gold-400);
+            position: relative;
+        }
+        .card-head {
+            background: linear-gradient(160deg, var(--navy-900), var(--navy-800), var(--navy-700));
+            padding: 18px 22px; text-align: center; color: #fff;
+            position: relative; overflow: hidden;
+        }
+        .card-head::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(212,175,55,0.08) 0%, transparent 50%);
+        }
+        .gold-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-600), var(--gold-400), var(--gold-200), var(--gold-400), var(--gold-600));
+        }
+        .card-foot {
+            background: var(--navy-900); padding: 12px 22px; text-align: center;
+        }
+
+        /* ══════════════════════════════════════
+           সার্চ পেজ
+        ══════════════════════════════════════ */
+        .search-box {
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 16px 52px 16px 20px;
+            border: 2px solid #dde5f0;
+            border-radius: 18px;
+            outline: none;
+            font-size: 15px;
+            background: #fff;
+            transition: all .3s;
+            color: var(--navy-900);
+        }
+        .search-box input:focus {
+            border-color: var(--navy-400);
+            box-shadow: 0 0 0 4px rgba(58,143,199,0.12), 0 4px 16px rgba(58,143,199,0.08);
+        }
+        .search-box input::placeholder { color: #a8bdd4; }
+        .search-btn {
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            width: 42px; height: 42px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--navy-700), var(--navy-600));
+            color: #fff; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(15,58,95,0.25);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .search-btn:active { transform: translateY(-50%) scale(0.92); }
+
+        /* সার্চ টিপস */
+        .search-tips {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;
+        }
+        .search-tip {
+            padding: 6px 14px; border-radius: 20px;
+            background: #fff; font-size: 11px; color: var(--navy-600);
+            border: 1px solid #dde5f0; cursor: pointer;
+            transition: all .2s; font-weight: 500;
+        }
+        .search-tip:active { transform: scale(0.95); background: var(--navy-50); }
+
+        /* ══════════════════════════════════════
+           ড্যাশবোর্ড
+        ══════════════════════════════════════ */
+        .dash-stat {
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px 10px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(4,21,41,0.05);
+            border: 1px solid rgba(4,21,41,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .dash-stat::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+        }
+        .dash-stat.navy-accent::before { background: linear-gradient(90deg, var(--navy-700), var(--navy-400)); }
+        .dash-stat.gold-accent::before { background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); }
+        .dash-stat.emerald-accent::before { background: linear-gradient(90deg, #059669, #34d399); }
+
+        .batch-bar-bg {
+            height: 32px; border-radius: 10px;
+            background: linear-gradient(90deg, #f3f6fb, #eef3fa);
+            overflow: hidden; position: relative;
+        }
+        .batch-bar-fill {
+            height: 100%; border-radius: 10px;
+            background: linear-gradient(90deg, var(--navy-800), var(--navy-600), var(--navy-400));
+            transition: width 1s cubic-bezier(.4,0,.2,1);
+            display: flex; align-items: center; padding-left: 12px;
+            box-shadow: 2px 0 12px rgba(15,58,95,0.15);
+        }
+
+        /* ══════════════════════════════════════
+           বটম নেভিগেশন
+        ══════════════════════════════════════ */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+            background: #fff;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -8px 40px rgba(4,21,41,0.10), 0 -2px 8px rgba(4,21,41,0.05);
+            padding: 10px 0 max(env(safe-area-inset-bottom), 10px);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 4px 0; cursor: pointer;
+            position: relative; color: #94aec8;
+            transition: color .3s;
+            flex: 1;
+        }
+        .nav-item.active { color: var(--navy-700); }
+
+        /* অ্যাক্টিভ ইন্ডিকেটর */
+        .nav-item.active .nav-indicator {
+            opacity: 1; transform: scaleX(1);
+        }
+        .nav-indicator {
+            position: absolute; top: -2px;
+            width: 28px; height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--gold-400), var(--gold-300));
+            opacity: 0; transform: scaleX(0);
+            transition: all .35s cubic-bezier(.4,0,.2,1);
+        }
+        .nav-item i {
+            font-size: 20px;
+            transition: transform .3s cubic-bezier(.4,0,.2,1);
+        }
+        .nav-item.active i {
+            transform: translateY(-3px) scale(1.15);
+        }
+        .nav-item span {
+            font-size: 10px; font-weight: 700; margin-top: 3px;
+            letter-spacing: 0.2px;
+        }
+
+        /* ══════════════════════════════════════
+           পেজ ট্রানজিশন
+        ══════════════════════════════════════ */
+        .page { display: none; }
+        .page.active {
+            display: block;
+            animation: pageSlideIn .4s cubic-bezier(.4,0,.2,1);
+        }
+        @keyframes pageSlideIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ══════════════════════════════════════
+           ইনপুট ফিল্ড
+        ══════════════════════════════════════ */
+        .input-field {
+            width: 100%; padding: 14px 16px;
+            border: 2px solid #dde5f0;
+            border-radius: 14px; outline: none;
+            font-size: 14px; background: #fff;
+            transition: all .25s; color: var(--navy-900);
+        }
+        .input-field:focus {
+            border-color: var(--navy-400);
+            box-shadow: 0 0 0 4px rgba(58,143,199,0.1);
+        }
+
+        /* ══════════════════════════════════════
+           টোস্ট
+        ══════════════════════════════════════ */
+        .toast-wrap {
+            position: fixed; top: 16px; left: 16px; right: 16px;
+            z-index: 9999; display: flex; flex-direction: column; gap: 8px;
+            pointer-events: none;
+        }
+        .toast-msg {
+            padding: 14px 20px; border-radius: 16px;
+            color: #fff; font-size: 13px; font-weight: 600;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+            display: flex; align-items: center; gap: 10px;
+            pointer-events: auto;
+            animation: toastIn .45s cubic-bezier(.4,0,.2,1) forwards;
+            backdrop-filter: blur(12px);
+        }
+        .toast-msg.out { animation: toastOut .3s ease forwards; }
+        .toast-success { background: linear-gradient(135deg, #059669ee, #10b981ee); }
+        .toast-error   { background: linear-gradient(135deg, #dc2626ee, #f43f5eee); }
+        .toast-info    { background: linear-gradient(135deg, #1b6096ee, #3a8fc7ee); }
+        @keyframes toastIn  { from { transform: translateY(-24px) scale(0.9); opacity:0; } to { transform: translateY(0) scale(1); opacity:1; } }
+        @keyframes toastOut { to { transform: translateY(-24px) scale(0.9); opacity:0; } }
+
+        /* ══════════════════════════════════════
+           ব্যাজ
+        ══════════════════════════════════════ */
+        .badge-paid   { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; }
+        .badge-unpaid { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; }
+
+        /* ══════════════════════════════════════
+           স্পিনার
+        ══════════════════════════════════════ */
+        .spinner {
+            width: 36px; height: 36px;
+            border: 3.5px solid #eef3fa;
+            border-top-color: var(--navy-600);
+            border-radius: 50%;
+            animation: spinRotate .7s linear infinite;
+        }
+        @keyframes spinRotate { to { transform: rotate(360deg); } }
+
+        /* ══════════════════════════════════════
+           সেকশন টাইটেল
+        ══════════════════════════════════════ */
+        .section-title {
+            font-size: 16px; font-weight: 800;
+            color: var(--navy-800);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-title i {
+            color: var(--gold-400);
+            font-size: 14px;
+        }
+
+        /* ══════════════════════════════════════
+           ওয়েলকাম কার্ড
+        ══════════════════════════════════════ */
+        .welcome-card {
+            background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
+            border-radius: 24px;
+            padding: 28px 22px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212,175,55,0.12);
+            box-shadow: 0 4px 24px rgba(4,21,41,0.05);
+        }
+        .welcome-card::before {
+            content: '';
+            position: absolute; top: -40px; right: -40px;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%);
+        }
+        .welcome-card::after {
+            content: '';
+            position: absolute; bottom: -30px; left: -30px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15,58,95,0.05), transparent 70%);
+        }
+
+        /* ══════════════════════════════════════
+           কাউন্টডাউন
+        ══════════════════════════════════════ */
+        .countdown-box {
+            display: flex; gap: 10px; justify-content: center; margin-top: 18px;
+        }
+        .countdown-item {
+            background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+            border-radius: 14px;
+            padding: 10px 14px;
+            text-align: center;
+            min-width: 58px;
+            box-shadow: 0 4px 16px rgba(15,58,95,0.2);
+        }
+        .countdown-num {
+            font-size: 22px; font-weight: 900; color: var(--gold-300);
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: 9px; color: rgba(255,255,255,0.5);
+            margin-top: 3px; font-weight: 500;
+        }
+
+        /* ══════════════════════════════════════
+           কার্ড অ্যাকশন বাটন
+        ══════════════════════════════════════ */
+        .card-action-btn {
+            padding: 10px 20px;
+            border-radius: 14px;
+            font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; gap: 7px;
+            border: none; cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .card-action-btn:active { transform: scale(0.93); }
+        .btn-print {
+            background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(15,58,95,0.2);
+        }
+        .btn-download {
+            background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+            color: var(--navy-900);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+        .btn-share {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.2);
+        }
+
+        /* ══════════════════════════════════════
+           প্রিন্ট
+        ══════════════════════════════════════ */
+        @media print {
+            body * { visibility: hidden !important; }
+            #card-printable, #card-printable * { visibility: visible !important; }
+            #card-printable { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+            .bottom-nav { display: none !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ══════════════════════════════════════
+           এম্পটি স্টেট
+        ══════════════════════════════════════ */
+        .empty-state {
+            text-align: center; padding: 40px 20px;
+        }
+        .empty-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy-50), #e8f0fb);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 16px rgba(4,21,41,0.06);
+        }
+        .empty-icon i { font-size: 28px; color: var(--navy-300); }
+
+        /* ══════════════════════════════════════
+           রিসেন্ট লিস্ট
+        ══════════════════════════════════════ */
+        .recent-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 14px; border-radius: 14px;
+            background: #fff;
+            border: 1px solid rgba(4,21,41,0.04);
+            transition: transform .2s;
+            cursor: pointer;
+        }
+        .recent-item:active { transform: scale(0.98); }
+        .recent-avatar {
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 800; flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═════════════════════════════════════════════════
+         হেডার
+    ═════════════════════════════════════════════════ -->
+    <header class="app-header text-white relative z-10">
+        <div class="relative z-10">
+            <!-- স্কুল নাম ও লোগো -->
+            <div class="flex items-center gap-3 mb-3">
+                <div class="school-logo">
+                    <i class="fas fa-graduation-cap text-xl" style="color: var(--navy-900);"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h1 class="text-lg font-extrabold leading-tight tracking-wide">KCG United High School</h1>
+                    <p class="text-[10px] tracking-[.3em] font-semibold" style="color: var(--gold-300);">SILVER JUBILEE 2027</p>
+                </div>
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="text-2xl font-black tracking-wide" style="color: var(--gold-300); text-shadow: 0 2px 12px rgba(212,175,55,0.3);">রজত জয়ন্তী ২০২৭</div>
+                <div class="text-[11px] font-medium mt-1" style="color: rgba(255,255,255,0.45);">ALUMNI REGISTRATION PORTAL</div>
+            </div>
+
+            <!-- পরিসংখ্যান -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="stat-pill">
+                    <div class="stat-icon" style="background: rgba(212,175,55,0.15); color: var(--gold-300);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-num text-white" id="stat-members">০</div>
+                    <div class="stat-label">মোট সদস্য</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-icon" style="background: rgba(16,185,129,0.15); color: #6ee7b7;">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-num" style="color: var(--gold-300);" id="stat-participants">০</div>
+                    <div class="stat-label">অংশগ্রহণকারী</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-icon" style="background: rgba(96,165,250,0.15); color: #93c5fd;">
+                        <i class="fas fa-bangladeshi-taka-sign"></i>
+                    </div>
+                    <div class="stat-num" style="color: #6ee7b7;" id="stat-amount">৳০</div>
+                    <div class="stat-label">সংগ্রহ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ভাসমান কণা -->
+        <div class="particle" style="width:5px;height:5px;background:rgba(212,175,55,0.5);left:6%;bottom:0;animation-duration:7s;animation-delay:0s;"></div>
+        <div class="particle" style="width:3px;height:3px;background:rgba(212,175,55,0.35);left:22%;bottom:0;animation-duration:9s;animation-delay:1.8s;"></div>
+        <div class="particle" style="width:6px;height:6px;background:rgba(212,175,55,0.25);left:45%;bottom:0;animation-duration:11s;animation-delay:0.5s;"></div>
+        <div class="particle" style="width:4px;height:4px;background:rgba(255,255,255,0.2);left:65%;bottom:0;animation-duration:8s;animation-delay:2.2s;"></div>
+        <div class="particle" style="width:3px;height:3px;background:rgba(212,175,55,0.4);left:82%;bottom:0;animation-duration:10s;animation-delay:0.8s;"></div>
+        <div class="particle" style="width:5px;height:5px;background:rgba(255,255,255,0.15);left:93%;bottom:0;animation-duration:12s;animation-delay:3s;"></div>
+    </header>
+
+    <!-- ═════════════════════════════════════════════════
+         মূল কন্টেন্ট
+    ═════════════════════════════════════════════════ -->
+    <main class="content-area">
+
+        <!-- ═══════ হোম পেজ ═══════ -->
+        <div id="page-home" class="page active">
+
+            <!-- স্বাগতম কার্ড -->
+            <div class="welcome-card mb-5">
+                <div class="relative z-10">
+                    <div class="text-3xl mb-2">🎉</div>
+                    <h2 class="text-xl font-black mb-2" style="color: var(--navy-800);">স্বাগতম!</h2>
+                    <p class="text-sm leading-relaxed" style="color: var(--navy-400); max-width: 280px; margin: 0 auto;">
+                        আমাদের প্রিয় <span style="color: var(--navy-700); font-weight: 700;">KCG United High School</span>-এর
+                        <span style="color: var(--gold-500); font-weight: 800;">রজত জয়ন্তী</span>
+                        উদযাপনে সকল প্রাক্তন ছাত্র-ছাত্রীদের সম্মানে বিনীত নিবেদন।
+                    </p>
+
+                    <!-- কাউন্টডাউন -->
+                    <div class="countdown-box" id="countdownBox">
+                        <div class="countdown-item">
+                            <div class="countdown-num" id="cd-days">---</div>
+                            <div class="countdown-label">দিন</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-num" id="cd-hours">--</div>
+                            <div class="countdown-label">ঘণ্টা</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-num" id="cd-mins">--</div>
+                            <div class="countdown-label">মিনিট</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-num" id="cd-secs">--</div>
+                            <div class="countdown-label">সেকেন্ড</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- অ্যাকশন কার্ড -->
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="action-card gold-top" onclick="switchView('search')">
+                    <div class="text-center">
+                        <div class="action-icon" style="background: linear-gradient(135deg, var(--gold-100), #fff5d4); color: var(--gold-500);">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="font-extrabold text-sm" style="color: var(--navy-800);">কার্ড খুঁজুন</div>
+                        <div class="text-[11px] mt-0.5" style="color: var(--navy-300);">রেজি. নম্বর দিয়ে</div>
+                    </div>
+                </div>
+                <div class="action-card navy-top" onclick="switchView('dashboard')">
+                    <div class="text-center">
+                        <div class="action-icon" style="background: linear-gradient(135deg, var(--navy-100), #eef5fb); color: var(--navy-600);">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="font-extrabold text-sm" style="color: var(--navy-800);">ড্যাশবোর্ড</div>
+                        <div class="text-[11px] mt-0.5" style="color: var(--navy-300);">ব্যাচ হিসাব</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- অনুষ্ঠানের তথ্য -->
+            <div class="info-card mb-5">
+                <h3 class="section-title mb-3">
+                    <i class="fas fa-sparkles"></i> অনুষ্ঠানের তথ্য
+                </h3>
+                <div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #dbeafe, #eff6ff); color: var(--navy-500);">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-medium" style="color: var(--navy-300);">তারিখ</div>
+                            <div class="text-sm font-bold" style="color: var(--navy-800);">শীঘ্রই ঘোষণা করা হবে</div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #fce7f3, #fdf2f8); color: #ec4899;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-medium" style="color: var(--navy-300);">স্থান</div>
+                            <div class="text-sm font-bold" style="color: var(--navy-800);">বিদ্যালয় প্রাঙ্গণ</div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background: linear-gradient(135deg, var(--gold-100), #fef9e7); color: var(--gold-500);">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-medium" style="color: var(--navy-300);">টি-শার্ট</div>
+                            <div class="text-sm font-bold" style="color: var(--navy-800);">প্রত্যেক সদস্যকে দেওয়া হবে</div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #d1fae5, #ecfdf5); color: #059669;">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-medium" style="color: var(--navy-300);">নিবন্ধন ফি</div>
+                            <div class="text-sm font-extrabold" style="color: #059669;">৫০০ টাকা / জন</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- সাম্প্রতিক নিবন্ধন -->
+            <div class="info-card">
+                <h3 class="section-title mb-3">
+                    <i class="fas fa-clock-rotate-left"></i> সাম্প্রতিক নিবন্ধন
+                </h3>
+                <div id="recentList" class="space-y-2.5">
+                    <div class="flex justify-center py-4"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════ অনুসন্ধান পেজ ═══════ -->
+        <div id="page-search" class="page">
+            <div class="text-center mb-5">
+                <div class="text-3xl mb-2">🔍</div>
+                <h2 class="text-xl font-black mb-1" style="color: var(--navy-800);">কার্ড অনুসন্ধান</h2>
+                <p class="text-xs" style="color: var(--navy-300);">রেজিস্ট্রেশন নম্বর বা মোবাইল নম্বর দিয়ে খুঁজুন</p>
+            </div>
+
+            <div class="search-box mb-4">
+                <input type="text" id="searchInput"
+                    placeholder="RJ2027-0001 বা 01XXXXXXXXX"
+                    onkeydown="if(event.key==='Enter')searchRegistration()">
+                <button class="search-btn" onclick="searchRegistration()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- সার্চ টিপস -->
+            <div class="search-tips" id="searchTips">
+                <div class="search-tip" onclick="document.getElementById('searchInput').value='RJ2027-';document.getElementById('searchInput').focus();">
+                    <i class="fas fa-hashtag" style="font-size:9px;margin-right:3px;"></i> রেজি. নম্বর
+                </div>
+                <div class="search-tip" onclick="document.getElementById('searchInput').value='01';document.getElementById('searchInput').focus();">
+                    <i class="fas fa-phone" style="font-size:9px;margin-right:3px;"></i> মোবাইল নম্বর
+                </div>
+            </div>
+
+            <!-- লোডিং -->
+            <div id="searchLoading" class="hidden flex justify-center py-12">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- ফলাফল -->
+            <div id="searchResult" class="hidden flex justify-center mt-5"></div>
+
+            <!-- পাওয়া যায়নি -->
+            <div id="searchNotFound" class="hidden empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <p class="font-bold" style="color: var(--navy-500);">কোনো তথ্য পাওয়া যায়নি</p>
+                <p class="text-xs mt-1" style="color: var(--navy-300);">সঠিক নম্বর দিয়ে আবার খুঁজুন</p>
+            </div>
+        </div>
+
+        <!-- ═══════ কার্ড পেজ ═══════ -->
+        <div id="page-card" class="page">
+            <div class="text-center mb-4">
+                <h2 class="text-lg font-extrabold" style="color: var(--navy-800);">আপনার রেজিস্ট্রেশন কার্ড</h2>
+                <p class="text-xs" style="color: var(--navy-300);">কার্ডটি ডাউনলোড বা শেয়ার করুন</p>
+            </div>
+            <div class="flex justify-center" id="card-printable"></div>
+            <div class="flex justify-center gap-3 mt-5">
+                <button onclick="printCard()" class="card-action-btn btn-print">
+                    <i class="fas fa-print"></i> প্রিন্ট
+                </button>
+                <button onclick="downloadCard()" class="card-action-btn btn-download">
+                    <i class="fas fa-download"></i> ডাউনলোড
+                </button>
+                <button onclick="shareCard()" class="card-action-btn btn-share">
+                    <i class="fas fa-share-alt"></i> শেয়ার
+                </button>
+            </div>
+        </div>
+
+        <!-- ═══════ ড্যাশবোর্ড পেজ ═══════ -->
+        <div id="page-dashboard" class="page">
+            <div class="text-center mb-5">
+                <div class="text-3xl mb-2">📊</div>
+                <h2 class="text-xl font-black mb-1" style="color: var(--navy-800);">ব্যাচ ড্যাশবোর্ড</h2>
+                <p class="text-xs" style="color: var(--navy-300);">ব্যাচভিত্তিক নিবন্ধনের সারসংক্ষেপ</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2.5 mb-5">
+                <div class="dash-stat navy-accent">
+                    <div class="text-xl font-black" style="color: var(--navy-700);" id="dash-members">০</div>
+                    <div class="text-[10px] font-semibold" style="color: var(--navy-300);">সদস্য</div>
+                </div>
+                <div class="dash-stat gold-accent">
+                    <div class="text-xl font-black" style="color: var(--gold-500);" id="dash-participants">০</div>
+                    <div class="text-[10px] font-semibold" style="color: var(--navy-300);">অংশগ্রহণ</div>
+                </div>
+                <div class="dash-stat emerald-accent">
+                    <div class="text-xl font-black" style="color: #059669;" id="dash-amount">৳০</div>
+                    <div class="text-[10px] font-semibold" style="color: var(--navy-300);">সংগ্রহ</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3 class="section-title mb-4">
+                    <i class="fas fa-layer-group"></i> ব্যাচভিত্তিক হিসাব
+                </h3>
+                <div id="batchStats" class="space-y-3">
+                    <div class="flex justify-center py-6"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- টোস্ট -->
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <!-- ═════════════════════════════════════════════════
+         বটম নেভিগেশন
+    ═════════════════════════════════════════════════ -->
+    <nav class="bottom-nav">
+        <div class="flex justify-around items-center max-w-lg mx-auto">
+            <div class="nav-item active" data-nav="home" onclick="switchView('home')">
+                <div class="nav-indicator"></div>
+                <i class="fas fa-home"></i>
+                <span>হোম</span>
+            </div>
+            <div class="nav-item" data-nav="search" onclick="switchView('search')">
+                <div class="nav-indicator"></div>
+                <i class="fas fa-search"></i>
+                <span>অনুসন্ধান</span>
+            </div>
+            <div class="nav-item" data-nav="dashboard" onclick="switchView('dashboard')">
+                <div class="nav-indicator"></div>
+                <i class="fas fa-chart-pie"></i>
+                <span>ড্যাশবোর্ড</span>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+    // ================================================================
+    //  Firebase কনফিগারেশন
+    // ================================================================
+    const firebaseConfig = {
+        databaseURL: "https://dokan-a264b-default-rtdb.firebaseio.com"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ================================================================
+    //  গ্লোবাল ভেরিয়েবল
+    // ================================================================
+    let currentView = 'home';
+    let currentCardData = null;
+
+    // ================================================================
+    //  নেভিগেশন
+    // ================================================================
+    function switchView(view) {
+        currentView = view;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + view)?.classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n =>
+            n.classList.toggle('active', n.dataset.nav === view)
+        );
+        if (view === 'home') { updateHomeStats(); loadRecent(); }
+        if (view === 'dashboard') renderDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================================================================
+    //  Firebase থেকে ডাটা পড়া
+    // ================================================================
+    async function fetchAll() {
+        try {
+            const snap = await db.ref('registrations').once('value');
+            return snap.exists() ? Object.values(snap.val()) : [];
+        } catch (e) {
+            console.error('Firebase error:', e);
+            showToast('ডাটা লোড করতে সমস্যা হয়েছে', 'error');
+            return [];
+        }
+    }
+
+    // ================================================================
+    //  হোম পরিসংখ্যান
+    // ================================================================
+    async function updateHomeStats() {
+        const regs = await fetchAll();
+        animate(document.getElementById('stat-members'), regs.length);
+        animate(
+            document.getElementById('stat-participants'),
+            regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0)
+        );
+        animate(
+            document.getElementById('stat-amount'),
+            regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0),
+            '৳'
+        );
+    }
+
+    // ================================================================
+    //  সাম্প্রতিক নিবন্ধন
+    // ================================================================
+    async function loadRecent() {
+        const regs = await fetchAll();
+        const el = document.getElementById('recentList');
+        if (!regs.length) {
+            el.innerHTML = '<div class="text-center py-4 text-sm" style="color:var(--navy-300);">এখনো কোনো নিবন্ধন হয়নি</div>';
+            return;
+        }
+        const recent = regs.slice(-5).reverse();
+        el.innerHTML = recent.map((r, i) => {
+            const colors = [
+                'background:linear-gradient(135deg,var(--navy-100),#eef5fb);color:var(--navy-600);',
+                'background:linear-gradient(135deg,var(--gold-100),#fef9e7);color:var(--gold-500);',
+                'background:linear-gradient(135deg,#d1fae5,#ecfdf5);color:#059669;',
+                'background:linear-gradient(135deg,#fce7f3,#fdf2f8);color:#ec4899;',
+                'background:linear-gradient(135deg,#dbeafe,#eff6ff);color:#3b82f6;',
+            ];
+            const initial = (r.name || '?').charAt(0);
+            const paid = r.paymentStatus === 'Paid';
+            return `
+            <div class="recent-item" onclick="quickSearch('${r.regNo || ''}')">
+                <div class="recent-avatar" style="${colors[i % 5]}">${initial}</div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold truncate" style="color:var(--navy-800);">${r.name || '---'}</div>
+                    <div class="text-[11px]" style="color:var(--navy-300);">${r.regNo || '---'} · ${r.batchType || ''} ${r.batchYear || ''}</div>
+                </div>
+                <div>
+                    ${paid
+                        ? '<span style="font-size:10px;padding:3px 8px;border-radius:8px;font-weight:700;" class="badge-paid">পরিশোধিত</span>'
+                        : '<span style="font-size:10px;padding:3px 8px;border-radius:8px;font-weight:700;" class="badge-unpaid">অপরিশোধিত</span>'
+                    }
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function quickSearch(regNo) {
+        if (!regNo) return;
+        document.getElementById('searchInput').value = regNo;
+        switchView('search');
+        searchRegistration();
+    }
+
+    // ================================================================
+    //  কাউন্টার অ্যানিমেশন
+    // ================================================================
+    function animate(el, target, prefix = '') {
+        if (!el) return;
+        const dur = 600;
+        const start = parseInt(el.textContent.replace(/[^\d]/g, '')) || 0;
+        const t0 = performance.now();
+        (function step(now) {
+            const p = Math.min((now - t0) / dur, 1);
+            const e = 1 - Math.pow(1 - p, 3);
+            el.textContent = prefix + Math.round(start + (target - start) * e).toLocaleString('bn-BD');
+            if (p < 1) requestAnimationFrame(step);
+        })(t0);
+    }
+
+    // ================================================================
+    //  কাউন্টডাউন (অনুষ্ঠানের তারিখ সেট করতে নিচের তারিখ পরিবর্তন করুন)
+    // ================================================================
+    const EVENT_DATE = new Date('2027-01-01T00:00:00+06:00');
+    function updateCountdown() {
+        const now = new Date();
+        let diff = EVENT_DATE - now;
+        if (diff < 0) diff = 0;
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-days').textContent = d.toLocaleString('bn-BD');
+        document.getElementById('cd-hours').textContent = h.toString().padStart(2, '0').replace(/[0-9]/g, c => '০১২৩৪৫৬৭৮৯'[c]);
+        document.getElementById('cd-mins').textContent = m.toString().padStart(2, '0').replace(/[0-9]/g, c => '০১২৩৪৫৬৭৮৯'[c]);
+        document.getElementById('cd-secs').textContent = s.toString().padStart(2, '0').replace(/[0-9]/g, c => '০১২৩৪৫৬৭৮৯'[c]);
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ================================================================
+    //  অনুসন্ধান
+    // ================================================================
+    async function searchRegistration() {
+        const q = document.getElementById('searchInput').value.trim();
+        if (!q) { showToast('নম্বর লিখুন', 'error'); return; }
+
+        document.getElementById('searchLoading').classList.remove('hidden');
+        document.getElementById('searchResult').classList.add('hidden');
+        document.getElementById('searchNotFound').classList.add('hidden');
+        document.getElementById('searchTips').style.display = 'none';
+
+        try {
+            let found = null;
+
+            // রেজি. নম্বর দিয়ে
+            const snap = await db.ref('registrations/' + q).once('value');
+            if (snap.exists()) {
+                found = snap.val();
+            } else {
+                // মোবাইল দিয়ে
+                const all = await db.ref('registrations').once('value');
+                if (all.exists()) {
+                    const vals = Object.values(all.val());
+                    found = vals.find(r => r.mobile === q) || null;
+                }
+            }
+
+            document.getElementById('searchLoading').classList.add('hidden');
+
+            if (found) {
+                currentCardData = found;
+                const container = document.getElementById('searchResult');
+                container.innerHTML = buildCardHTML(found);
+                container.classList.remove('hidden');
+                showToast('তথ্য পাওয়া গেছে!', 'success');
+            } else {
+                document.getElementById('searchNotFound').classList.remove('hidden');
+            }
+        } catch (e) {
+            console.error(e);
+            document.getElementById('searchLoading').classList.add('hidden');
+            document.getElementById('searchNotFound').classList.remove('hidden');
+            showToast('অনুসন্ধানে সমস্যা', 'error');
+        }
+    }
+
+    // ================================================================
+    //  কার্ড HTML তৈরি
+    // ================================================================
+    function buildCardHTML(reg) {
+        const photo = reg.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(reg.name || 'U')}&size=120&background=d4af37&color=041529&font-size=0.4&bold=true`;
+        const badge = reg.paymentStatus === 'Paid'
+            ? '<span class="badge-paid" style="display:inline-block;padding:4px 12px;border-radius:10px;font-size:10px;font-weight:800;">পরিশোধিত</span>'
+            : '<span class="badge-unpaid" style="display:inline-block;padding:4px 12px;border-radius:10px;font-size:10px;font-weight:800;">অপরিশোধিত</span>';
+
+        return `
+        <div class="reg-card" id="digitalCard">
+            <div class="card-head">
+                <div style="color:var(--gold-300);font-size:9px;letter-spacing:.3em;font-weight:700;margin-bottom:2px;">SILVER JUBILEE</div>
+                <div style="font-size:18px;font-weight:900;position:relative;z-index:1;">রজত জয়ন্তী ২০২৭</div>
+                <div style="color:rgba(255,255,255,0.35);font-size:9px;margin-top:2px;font-weight:500;">KCG United High School</div>
+            </div>
+            <div class="gold-divider"></div>
+            <div style="padding:18px 18px; display:flex; gap:14px;">
+                <div style="flex-shrink:0;">
+                    <img src="${photo}" alt="ছবি" style="width:88px;height:110px;border-radius:14px;object-fit:cover;border:3px solid var(--gold-400);box-shadow:0 6px 20px rgba(212,175,55,0.20);">
+                </div>
+                <div style="flex:1;text-align:left;">
+                    <div style="font-size:10px;color:var(--navy-300);font-weight:600;">নাম</div>
+                    <div style="font-size:15px;font-weight:900;color:var(--navy-900);margin-top:-1px;margin-bottom:8px;line-height:1.2;">${reg.name || '---'}</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;font-size:11px;">
+                        <div><span style="color:var(--navy-300);">মোবাইল:</span> <span style="font-weight:700;color:var(--navy-700);">${reg.mobile || '---'}</span></div>
+                        <div><span style="color:var(--navy-300);">ব্যাচ:</span> <span style="font-weight:700;color:var(--navy-700);">${reg.batchType || ''} ${reg.batchYear || ''}</span></div>
+                        <div><span style="color:var(--navy-300);">সদস্য:</span> <span style="font-weight:700;color:var(--navy-700);">${reg.participants || 1} জন</span></div>
+                        <div><span style="color:var(--navy-300);">টি-শার্ট:</span> <span style="font-weight:700;color:var(--navy-700);">${reg.tshirtSize || '---'}</span></div>
+                        <div><span style="color:var(--navy-300);">পেমেন্ট:</span> <span style="font-weight:700;color:var(--navy-700);">${reg.paymentMethod || '---'}</span></div>
+                        <div><span style="color:var(--navy-300);">পরিমাণ:</span> <span style="font-weight:900;color:var(--navy-900);">৳${reg.amount || 0}</span></div>
+                    </div>
+                    <div style="margin-top:10px;">${badge}</div>
+                </div>
+            </div>
+            <div class="gold-divider"></div>
+            <div class="card-foot">
+                <span style="color:var(--gold-300);font-size:13px;font-weight:900;letter-spacing:2.5px;">${reg.regNo || '---'}</span>
+            </div>
+        </div>`;
+    }
+
+    // ================================================================
+    //  কার্ড অ্যাকশন
+    // ================================================================
+    function showCardPage(reg) {
+        currentCardData = reg;
+        document.getElementById('card-printable').innerHTML = buildCardHTML(reg);
+        switchView('card');
+    }
+
+    function printCard() { window.print(); }
+
+    function downloadCard() {
+        const card = document.getElementById('digitalCard');
+        if (typeof html2canvas === 'function') {
+            html2canvas(card, { backgroundColor: null, scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'RJ2027-card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                showToast('কার্ড ডাউনলোড হচ্ছে', 'success');
+            }).catch(() => showToast('ডাউনলোডে সমস্যা', 'error'));
+        }
+    }
+
+    function shareCard() {
+        const name = currentCardData ? currentCardData.name : '';
+        const regNo = currentCardData ? currentCardData.regNo : '';
+        const text = `রজত জয়ন্তী ২০২৭ - KCG United High School\nনাম: ${name}\nরেজিস্ট্রেশন নম্বর: ${regNo}`;
+        if (navigator.share) {
+            navigator.share({ title: 'রজত জয়ন্তী ২০২৭', text }).catch(() => {});
+        } else if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => showToast('কপি হয়েছে!', 'success'));
+        }
+    }
+
+    // ================================================================
+    //  ড্যাশবোর্ড
+    // ================================================================
+    async function renderDashboard() {
+        const regs = await fetchAll();
+
+        animate(document.getElementById('dash-members'), regs.length);
+        animate(
+            document.getElementById('dash-participants'),
+            regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0)
+        );
+        animate(
+            document.getElementById('dash-amount'),
+            regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0),
+            '৳'
+        );
+
+        const batchMap = {};
+        regs.forEach(r => {
+            const k = (r.batchType || '') + ' ' + (r.batchYear || '');
+            if (!batchMap[k]) batchMap[k] = { m: 0, p: 0, a: 0 };
+            batchMap[k].m++;
+            batchMap[k].p += (parseInt(r.participants) || 1);
+            if (r.paymentStatus === 'Paid') batchMap[k].a += (parseInt(r.amount) || 0);
+        });
+
+        const el = document.getElementById('batchStats');
+        const keys = Object.keys(batchMap).sort();
+
+        if (!keys.length) {
+            el.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-chart-bar"></i></div><p class="font-medium" style="color:var(--navy-400);">কোনো নিবন্ধন নেই</p></div>';
+            return;
+        }
+
+        const maxM = Math.max(...keys.map(k => batchMap[k].m));
+
+        el.innerHTML = keys.map((k, idx) => {
+            const b = batchMap[k];
+            const w = Math.max(14, (b.m / maxM) * 100);
+            const gradients = [
+                'linear-gradient(90deg, var(--navy-800), var(--navy-500))',
+                'linear-gradient(90deg, var(--gold-500), var(--gold-300))',
+                'linear-gradient(90deg, #059669, #34d399)',
+                'linear-gradient(90deg, #7c3aed, #a78bfa)',
+                'linear-gradient(90deg, #db2777, #f472b6)',
+            ];
+            const grad = gradients[idx % gradients.length];
+            return `
+            <div style="background:#fff;border-radius:16px;padding:14px 16px;border:1px solid rgba(4,21,41,0.04);box-shadow:0 2px 8px rgba(4,21,41,0.03);">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <span style="font-weight:800;font-size:14px;color:var(--navy-800);">${k}</span>
+                    <div style="display:flex;gap:10px;font-size:10px;color:var(--navy-300);">
+                        <span><b style="color:var(--navy-700);">${b.m}</b> সদস্য</span>
+                        <span><b style="color:var(--navy-700);">${b.p}</b> অংশগ্রহণ</span>
+                        <span><b style="color:#059669;">৳${b.a}</b></span>
+                    </div>
+                </div>
+                <div class="batch-bar-bg">
+                    <div class="batch-bar-fill" style="width:${w}%;background:${grad};">
+                        <span style="color:#fff;font-size:10px;font-weight:800;">${b.m}</span>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ================================================================
+    //  টোস্ট
+    // ================================================================
+    function showToast(msg, type = 'info') {
+        const wrap = document.getElementById('toastWrap');
+        const t = document.createElement('div');
+        t.className = `toast-msg toast-${type}`;
+        const ico = type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle';
+        t.innerHTML = `<i class="fas fa-${ico}"></i> ${msg}`;
+        wrap.appendChild(t);
+        setTimeout(() => {
+            t.classList.add('out');
+            setTimeout(() => t.remove(), 300);
+        }, 2500);
+    }
+
+    // ================================================================
+    //  ইনিশিয়ালাইজেশন
+    // ================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        updateHomeStats();
+        loadRecent();
+    });
+    </script>
+</body>
+</html>
