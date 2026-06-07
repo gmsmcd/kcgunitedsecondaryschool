@@ -32,6 +32,7 @@
             --accent-dark: #b08d30;
             --success: #10b981;
             --danger: #ef4444;
+            --warning: #f59e0b;
             --surface: #ffffff;
             --surface-dim: #f4f7fc;
             --surface-muted: #e8edf5;
@@ -81,7 +82,6 @@
             pointer-events: none;
         }
 
-        /* হেডার টপ বার */
         .header-top {
             display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 14px; position: relative; z-index: 2;
@@ -97,7 +97,6 @@
         .header-title h1 { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.2; }
         .header-title p { font-size: 9px; letter-spacing: .25em; color: var(--accent-light); font-weight: 600; margin-top: 1px; }
 
-        /* নোটিশ বেল */
         .notice-bell {
             position: relative; width: 42px; height: 42px;
             border-radius: 12px; background: rgba(255,255,255,0.08);
@@ -119,7 +118,6 @@
         }
         .notice-badge.show { display: flex; }
 
-        /* পরিসংখ্যান */
         .stat-row {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
             position: relative; z-index: 2;
@@ -132,15 +130,9 @@
             text-align: center; transition: transform .2s;
         }
         .stat-box:active { transform: scale(.96); }
-        .stat-val {
-            font-size: 20px; font-weight: 900; color: #fff; line-height: 1;
-        }
-        .stat-lbl {
-            font-size: 9px; color: rgba(255,255,255,0.5);
-            margin-top: 4px; font-weight: 500;
-        }
+        .stat-val { font-size: 20px; font-weight: 900; color: #fff; line-height: 1; }
+        .stat-lbl { font-size: 9px; color: rgba(255,255,255,0.5); margin-top: 4px; font-weight: 500; }
 
-        /* ভাসমান কণা */
         .particle {
             position: absolute; border-radius: 50%; pointer-events: none;
             opacity: 0; animation: pFloat linear infinite;
@@ -153,7 +145,7 @@
         }
 
         /* ═══════════════════════════════════════════
-           কন্টেন্ট এরিয়া
+           কন্টেন্ট
         ═══════════════════════════════════════════ */
         .content-area {
             padding: 18px 16px 90px;
@@ -161,9 +153,6 @@
             margin: 0 auto;
         }
 
-        /* ═══════════════════════════════════════════
-           কার্ড বেস
-        ═══════════════════════════════════════════ */
         .card {
             background: var(--surface);
             border-radius: 18px;
@@ -179,9 +168,6 @@
         }
         .card-title i { color: var(--accent); font-size: 13px; }
 
-        /* ═══════════════════════════════════════════
-           অ্যাকশন কার্ড
-        ═══════════════════════════════════════════ */
         .action-card {
             background: var(--surface);
             border-radius: 18px;
@@ -192,10 +178,7 @@
             transition: transform .2s, box-shadow .2s;
             text-align: center;
         }
-        .action-card:active {
-            transform: scale(.96);
-            box-shadow: var(--shadow-md);
-        }
+        .action-card:active { transform: scale(.96); box-shadow: var(--shadow-md); }
         .action-icon {
             width: 50px; height: 50px; border-radius: 16px;
             display: flex; align-items: center; justify-content: center;
@@ -204,9 +187,6 @@
         .action-label { font-size: 13px; font-weight: 800; color: var(--text-primary); }
         .action-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
-        /* ═══════════════════════════════════════════
-           ইনফো রো
-        ═══════════════════════════════════════════ */
         .info-row {
             display: flex; align-items: center; gap: 12px;
             padding: 11px 0;
@@ -220,7 +200,7 @@
         }
 
         /* ═══════════════════════════════════════════
-           নোটিশ ব্যানার (হোমে সর্বশেষ নোটিশ)
+           নোটিশ ব্যানার
         ═══════════════════════════════════════════ */
         .notice-banner {
             background: linear-gradient(135deg, #fef9e7 0%, #fef3c7 100%);
@@ -230,125 +210,49 @@
             margin-bottom: 14px;
             cursor: pointer;
             transition: transform .2s;
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         .notice-banner:active { transform: scale(.98); }
         .notice-banner::before {
-            content: '';
-            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
             background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-            border-radius: 4px 0 0 4px;
         }
-        .notice-banner-head {
-            display: flex; align-items: center; gap: 8px;
-            margin-bottom: 4px;
-        }
+        .notice-banner-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
         .notice-banner-head i { color: var(--accent-dark); font-size: 13px; }
-        .notice-banner-head span {
-            font-size: 11px; font-weight: 700; color: var(--accent-dark);
-            text-transform: uppercase; letter-spacing: .5px;
-        }
-        .notice-banner-title {
-            font-size: 13px; font-weight: 700; color: var(--text-primary);
-            padding-left: 21px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .notice-banner-time {
-            font-size: 10px; color: var(--text-muted);
-            padding-left: 21px; margin-top: 2px;
-        }
+        .notice-banner-head span { font-size: 11px; font-weight: 700; color: var(--accent-dark); text-transform: uppercase; letter-spacing: .5px; }
+        .notice-banner-title { font-size: 13px; font-weight: 700; color: var(--text-primary); padding-left: 21px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .notice-banner-time { font-size: 10px; color: var(--text-muted); padding-left: 21px; margin-top: 2px; }
 
         /* ═══════════════════════════════════════════
            নোটিশ পেজ
         ═══════════════════════════════════════════ */
         .notice-item {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(11,29,58,0.04);
-            position: relative;
-            overflow: hidden;
+            background: var(--surface); border-radius: 16px;
+            padding: 16px; margin-bottom: 12px;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(11,29,58,0.04);
+            position: relative; overflow: hidden;
         }
-        .notice-item::before {
-            content: '';
-            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-        }
+        .notice-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
         .notice-item.urgent::before { background: var(--danger); }
         .notice-item.important::before { background: var(--accent); }
         .notice-item.general::before { background: var(--primary-soft); }
-        .notice-tag {
-            display: inline-block; padding: 2px 10px;
-            border-radius: 8px; font-size: 9px;
-            font-weight: 800; text-transform: uppercase;
-            letter-spacing: .5px; margin-bottom: 6px;
-        }
+        .notice-tag { display: inline-block; padding: 2px 10px; border-radius: 8px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
         .notice-tag.urgent { background: #fee2e2; color: #991b1b; }
         .notice-tag.important { background: #fef3c7; color: #92400e; }
         .notice-tag.general { background: #dbeafe; color: #1e40af; }
-        .notice-headline {
-            font-size: 14px; font-weight: 800; color: var(--text-primary);
-            margin-bottom: 6px; line-height: 1.4;
-        }
-        .notice-body {
-            font-size: 12px; color: var(--text-secondary);
-            line-height: 1.6; white-space: pre-wrap;
-        }
-        .notice-meta {
-            display: flex; align-items: center; gap: 12px;
-            margin-top: 10px; padding-top: 10px;
-            border-top: 1px solid var(--surface-muted);
-            font-size: 10px; color: var(--text-muted);
-        }
+        .notice-headline { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
+        .notice-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap; }
+        .notice-meta { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface-muted); font-size: 10px; color: var(--text-muted); }
         .notice-meta i { margin-right: 3px; }
-
-        /* ═══════════════════════════════════════════
-           রেজিস্ট্রেশন কার্ড
-        ═══════════════════════════════════════════ */
-        .reg-card {
-            width: 340px; max-width: 100%;
-            background: var(--surface); border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 16px 48px rgba(11,29,58,0.16);
-            border: 2.5px solid var(--accent);
-        }
-        .card-head {
-            background: linear-gradient(160deg, var(--primary), var(--primary-light), var(--primary-mid));
-            padding: 16px 20px; text-align: center; color: #fff;
-            position: relative;
-        }
-        .card-head::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(212,175,55,0.08) 0%, transparent 50%);
-        }
-        .gold-line {
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light), var(--accent), var(--accent-dark));
-        }
-        .card-foot {
-            background: var(--primary); padding: 10px 20px; text-align: center;
-        }
 
         /* ═══════════════════════════════════════════
            সার্চ
         ═══════════════════════════════════════════ */
         .search-wrap {
-            position: relative;
-            background: var(--surface);
-            border-radius: 16px;
-            box-shadow: var(--shadow-md);
-            display: flex; align-items: center;
-            padding: 4px;
+            position: relative; background: var(--surface); border-radius: 16px;
+            box-shadow: var(--shadow-md); display: flex; align-items: center; padding: 4px;
         }
-        .search-wrap input {
-            flex: 1; padding: 12px 16px;
-            border: none; outline: none;
-            font-size: 14px; background: transparent;
-            color: var(--text-primary);
-        }
+        .search-wrap input { flex: 1; padding: 12px 16px; border: none; outline: none; font-size: 14px; background: transparent; color: var(--text-primary); }
         .search-wrap input::placeholder { color: var(--text-muted); }
         .search-go {
             width: 44px; height: 44px; border-radius: 12px;
@@ -357,13 +261,9 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 16px; flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(11,29,58,0.2);
-            transition: transform .15s;
         }
         .search-go:active { transform: scale(.9); }
-
-        .search-hints {
-            display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
-        }
+        .search-hints { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
         .search-hint {
             padding: 5px 12px; border-radius: 20px;
             background: var(--surface); font-size: 11px;
@@ -373,32 +273,102 @@
         .search-hint:active { background: var(--surface-dim); }
 
         /* ═══════════════════════════════════════════
+           টেবিল-স্টাইল ডিটেইল কার্ড
+        ═══════════════════════════════════════════ */
+        .detail-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(11,29,58,0.06);
+            max-width: 100%;
+        }
+        .detail-card-header {
+            background: linear-gradient(160deg, var(--primary), var(--primary-light), var(--primary-mid));
+            padding: 16px 20px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        .detail-card-header::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(212,175,55,0.08) 0%, transparent 50%);
+        }
+        .detail-card-header h2 {
+            font-size: 16px; font-weight: 900; position: relative; z-index: 1;
+        }
+        .detail-card-header p {
+            font-size: 9px; letter-spacing: .3em; color: var(--accent-light);
+            font-weight: 700; position: relative; z-index: 1; margin-top: 2px;
+        }
+        .detail-card-header .reg-no {
+            font-size: 13px; font-weight: 900; color: var(--accent-light);
+            letter-spacing: 2px; margin-top: 6px; position: relative; z-index: 1;
+        }
+        .detail-gold-line {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light), var(--accent), var(--accent-dark));
+        }
+        .detail-card-photo {
+            text-align: center;
+            padding: 16px 20px 8px;
+            background: var(--surface);
+        }
+        .detail-card-photo img {
+            width: 90px; height: 115px;
+            border-radius: 14px; object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 4px 16px rgba(212,175,55,0.2);
+        }
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .detail-table tr:nth-child(even) { background: #f6f8fc; }
+        .detail-table tr:nth-child(odd) { background: #ffffff; }
+        .detail-table td {
+            padding: 10px 16px;
+            font-size: 12px;
+            border-bottom: 1px solid var(--surface-muted);
+            vertical-align: middle;
+        }
+        .detail-table td:first-child {
+            font-weight: 700;
+            color: var(--primary-soft);
+            white-space: nowrap;
+            width: 42%;
+        }
+        .detail-table td:last-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+        .detail-table tr:last-child td { border-bottom: none; }
+        .detail-card-footer {
+            background: var(--primary);
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .detail-card-footer span {
+            color: var(--accent-light); font-size: 11px; font-weight: 700; letter-spacing: .5px;
+        }
+        .badge-paid { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
+        .badge-unpaid { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
+
+        /* ═══════════════════════════════════════════
            ড্যাশবোর্ড
         ═══════════════════════════════════════════ */
-        .dash-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-        }
+        .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .dash-box {
-            background: var(--surface);
-            border-radius: 14px; padding: 14px 8px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(11,29,58,0.04);
+            background: var(--surface); border-radius: 14px; padding: 14px 8px;
+            text-align: center; box-shadow: var(--shadow-sm); border: 1px solid rgba(11,29,58,0.04);
             position: relative; overflow: hidden;
         }
-        .dash-box::after {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-        }
+        .dash-box::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
         .dash-box.navy-t::after { background: linear-gradient(90deg, var(--primary), var(--primary-soft)); }
         .dash-box.gold-t::after { background: linear-gradient(90deg, var(--accent-dark), var(--accent-light)); }
         .dash-box.green-t::after { background: linear-gradient(90deg, #059669, #34d399); }
-
-        .bar-bg {
-            height: 28px; border-radius: 8px;
-            background: var(--surface-dim);
-            overflow: hidden;
-        }
+        .bar-bg { height: 28px; border-radius: 8px; background: var(--surface-dim); overflow: hidden; }
         .bar-fill {
             height: 100%; border-radius: 8px;
             background: linear-gradient(90deg, var(--primary), var(--primary-soft));
@@ -408,7 +378,7 @@
         .bar-fill span { color: #fff; font-size: 10px; font-weight: 800; }
 
         /* ═══════════════════════════════════════════
-           বটম নেভিগেশন — প্রফেশনাল
+           বটম নেভিগেশন
         ═══════════════════════════════════════════ */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
@@ -418,58 +388,38 @@
         }
         .nav-inner {
             display: flex; justify-content: space-around; align-items: center;
-            max-width: 480px; margin: 0 auto;
-            padding: 0 8px;
+            max-width: 480px; margin: 0 auto; padding: 0 8px;
         }
         .nav-btn {
             display: flex; flex-direction: column; align-items: center;
-            padding: 6px 12px; cursor: pointer;
-            color: var(--text-muted);
-            transition: color .25s; position: relative;
-            background: none; border: none;
-            -webkit-tap-highlight-color: transparent;
+            padding: 6px 12px; cursor: pointer; color: var(--text-muted);
+            transition: color .25s; position: relative; background: none; border: none;
         }
         .nav-btn.active { color: var(--primary-light); }
-
-        .nav-btn i {
-            font-size: 20px; transition: transform .25s cubic-bezier(.4,0,.2,1);
-        }
+        .nav-btn i { font-size: 20px; transition: transform .25s cubic-bezier(.4,0,.2,1); }
         .nav-btn.active i { transform: translateY(-2px); }
-
-        .nav-btn span {
-            font-size: 10px; font-weight: 700; margin-top: 2px;
-        }
-
-        /* অ্যাক্টিভ ডট */
+        .nav-btn span { font-size: 10px; font-weight: 700; margin-top: 2px; }
         .nav-dot {
-            width: 4px; height: 4px; border-radius: 50%;
-            background: var(--accent);
-            margin-top: 3px;
-            opacity: 0; transform: scale(0);
+            width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+            margin-top: 3px; opacity: 0; transform: scale(0);
             transition: all .3s cubic-bezier(.4,0,.2,1);
         }
         .nav-btn.active .nav-dot { opacity: 1; transform: scale(1); }
-
-        /* নোটিশ আইকনে ব্যাজ */
         .nav-badge {
             position: absolute; top: 2px; right: 4px;
             min-width: 16px; height: 16px; border-radius: 8px;
-            background: var(--danger); color: #fff;
-            font-size: 9px; font-weight: 800;
-            display: none; align-items: center; justify-content: center;
-            padding: 0 3px; line-height: 1;
+            background: var(--danger); color: #fff; font-size: 9px; font-weight: 800;
+            display: none; align-items: center; justify-content: center; padding: 0 3px;
         }
         .nav-badge.show { display: flex; }
 
         /* ═══════════════════════════════════════════
-           কার্ড অ্যাকশন বাটন
+           অ্যাকশন বাটন
         ═══════════════════════════════════════════ */
         .act-btn {
-            padding: 10px 18px; border-radius: 12px;
-            font-size: 12px; font-weight: 700;
+            padding: 10px 18px; border-radius: 12px; font-size: 12px; font-weight: 700;
             display: inline-flex; align-items: center; gap: 6px;
-            border: none; cursor: pointer;
-            transition: transform .15s;
+            border: none; cursor: pointer; transition: transform .15s;
         }
         .act-btn:active { transform: scale(.93); }
         .act-btn.print { background: var(--primary); color: #fff; }
@@ -480,76 +430,29 @@
            পেজ ট্রানজিশন
         ═══════════════════════════════════════════ */
         .page { display: none; }
-        .page.active {
-            display: block;
-            animation: pageIn .35s cubic-bezier(.4,0,.2,1);
-        }
-        @keyframes pageIn {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        .page.active { display: block; animation: pageIn .35s cubic-bezier(.4,0,.2,1); }
+        @keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ═══════════════════════════════════════════
-           স্পিনার
-        ═══════════════════════════════════════════ */
-        .spinner {
-            width: 32px; height: 32px;
-            border: 3px solid var(--surface-muted);
-            border-top-color: var(--primary-mid);
-            border-radius: 50%;
-            animation: spin .6s linear infinite;
-        }
+        .spinner { width: 32px; height: 32px; border: 3px solid var(--surface-muted); border-top-color: var(--primary-mid); border-radius: 50%; animation: spin .6s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ═══════════════════════════════════════════
-           টোস্ট
-        ═══════════════════════════════════════════ */
-        .toast-wrap {
-            position: fixed; top: 14px; left: 14px; right: 14px;
-            z-index: 9999; display: flex; flex-direction: column; gap: 8px;
-            pointer-events: none;
-        }
-        .toast-msg {
-            padding: 12px 16px; border-radius: 14px;
-            color: #fff; font-size: 13px; font-weight: 600;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.16);
-            display: flex; align-items: center; gap: 8px;
-            pointer-events: auto;
-            animation: tIn .4s cubic-bezier(.4,0,.2,1) forwards;
-        }
+        .toast-wrap { position: fixed; top: 14px; left: 14px; right: 14px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+        .toast-msg { padding: 12px 16px; border-radius: 14px; color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 8px 28px rgba(0,0,0,0.16); display: flex; align-items: center; gap: 8px; pointer-events: auto; animation: tIn .4s cubic-bezier(.4,0,.2,1) forwards; }
         .toast-msg.out { animation: tOut .3s ease forwards; }
         .toast-success { background: linear-gradient(135deg, #059669dd, #10b981dd); }
-        .toast-error   { background: linear-gradient(135deg, #dc2626dd, #ef4444dd); }
-        .toast-info    { background: linear-gradient(135deg, var(--primary-light)dd, var(--primary-soft)dd); }
-        @keyframes tIn  { from { transform: translateY(-18px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+        .toast-error { background: linear-gradient(135deg, #dc2626dd, #ef4444dd); }
+        .toast-info { background: linear-gradient(135deg, var(--primary-light)dd, var(--primary-soft)dd); }
+        @keyframes tIn { from { transform: translateY(-18px); opacity:0; } to { transform: translateY(0); opacity:1; } }
         @keyframes tOut { to { transform: translateY(-18px); opacity:0; } }
 
-        /* ═══════════════════════════════════════════
-           ব্যাজ
-        ═══════════════════════════════════════════ */
-        .badge-paid   { background: #d1fae5; color: #065f46; }
-        .badge-unpaid { background: #fee2e2; color: #991b1b; }
-
-        /* ═══════════════════════════════════════════
-           এম্পটি স্টেট
-        ═══════════════════════════════════════════ */
         .empty-state { text-align: center; padding: 36px 20px; }
-        .empty-icon {
-            width: 64px; height: 64px; border-radius: 50%;
-            background: var(--surface-dim);
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 14px;
-        }
+        .empty-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--surface-dim); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
         .empty-icon i { font-size: 24px; color: var(--text-muted); }
 
-        /* ═══════════════════════════════════════════
-           রিসেন্ট লিস্ট
-        ═══════════════════════════════════════════ */
         .recent-row {
             display: flex; align-items: center; gap: 10px;
             padding: 10px 12px; border-radius: 12px;
-            background: var(--surface-dim);
-            transition: transform .15s; cursor: pointer;
+            background: var(--surface-dim); transition: transform .15s; cursor: pointer;
         }
         .recent-row:active { transform: scale(.98); }
         .recent-avatar {
@@ -561,7 +464,7 @@
         }
 
         /* ═══════════════════════════════════════════
-           নোটিশ মোডাল
+           মোডাল
         ═══════════════════════════════════════════ */
         .modal-overlay {
             position: fixed; inset: 0; z-index: 200;
@@ -572,28 +475,15 @@
         }
         .modal-overlay.show { display: flex; }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
         .modal-sheet {
-            background: var(--surface);
-            border-radius: 24px 24px 0 0;
-            width: 100%; max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 20px 18px max(env(safe-area-inset-bottom), 20px);
+            background: var(--surface); border-radius: 24px 24px 0 0;
+            width: 100%; max-width: 480px; max-height: 85vh;
+            overflow-y: auto; padding: 20px 18px max(env(safe-area-inset-bottom), 20px);
             animation: sheetUp .35s cubic-bezier(.4,0,.2,1);
         }
-        @keyframes sheetUp {
-            from { transform: translateY(100%); }
-            to   { transform: translateY(0); }
-        }
-        .modal-handle {
-            width: 36px; height: 4px; border-radius: 2px;
-            background: var(--border); margin: 0 auto 16px;
-        }
+        @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 16px; }
 
-        /* ═══════════════════════════════════════════
-           প্রিন্ট
-        ═══════════════════════════════════════════ */
         @media print {
             body * { visibility: hidden !important; }
             #card-printable, #card-printable * { visibility: visible !important; }
@@ -602,23 +492,16 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══════════════════════════════════════════
-         হেডার
-    ═══════════════════════════════════════════ -->
+    <!-- হেডার -->
     <header class="app-header">
         <div class="header-top">
-            <div class="header-logo">
-                <i class="fas fa-graduation-cap"></i>
-            </div>
+            <div class="header-logo"><i class="fas fa-graduation-cap"></i></div>
             <div class="header-title">
                 <h1>KCG United High School</h1>
                 <p>SILVER JUBILEE 2027</p>
@@ -628,7 +511,6 @@
                 <div class="notice-badge" id="noticeBadge">0</div>
             </div>
         </div>
-
         <div class="stat-row">
             <div class="stat-box">
                 <div class="stat-val" id="stat-members">০</div>
@@ -643,8 +525,6 @@
                 <div class="stat-lbl">সংগ্রহ</div>
             </div>
         </div>
-
-        <!-- ভাসমান কণা -->
         <div class="particle" style="width:4px;height:4px;background:rgba(212,175,55,0.45);left:8%;bottom:0;animation-duration:7s;animation-delay:0s;"></div>
         <div class="particle" style="width:3px;height:3px;background:rgba(212,175,55,0.3);left:28%;bottom:0;animation-duration:9s;animation-delay:1.5s;"></div>
         <div class="particle" style="width:5px;height:5px;background:rgba(212,175,55,0.2);left:52%;bottom:0;animation-duration:11s;animation-delay:.5s;"></div>
@@ -652,25 +532,17 @@
         <div class="particle" style="width:4px;height:4px;background:rgba(212,175,55,0.35);left:90%;bottom:0;animation-duration:10s;animation-delay:.8s;"></div>
     </header>
 
-    <!-- ═══════════════════════════════════════════
-         মূল কন্টেন্ট
-    ═══════════════════════════════════════════ -->
+    <!-- মূল কন্টেন্ট -->
     <main class="content-area">
 
-        <!-- ════ হোম পেজ ════ -->
+        <!-- হোম পেজ -->
         <div id="page-home" class="page active">
-
-            <!-- সর্বশেষ নোটিশ ব্যানার -->
             <div id="noticeBanner" class="notice-banner" style="display:none;" onclick="openNoticeModal()">
-                <div class="notice-banner-head">
-                    <i class="fas fa-bullhorn"></i>
-                    <span>সর্বশেষ নোটিশ</span>
-                </div>
+                <div class="notice-banner-head"><i class="fas fa-bullhorn"></i><span>সর্বশেষ নোটিশ</span></div>
                 <div class="notice-banner-title" id="bannerTitle">---</div>
                 <div class="notice-banner-time" id="bannerTime">---</div>
             </div>
 
-            <!-- স্বাগতম -->
             <div class="card" style="text-align:center; background:linear-gradient(135deg,#fff,#f8faff); border:1px solid rgba(212,175,55,0.1);">
                 <div style="font-size:28px; margin-bottom:8px;">🎉</div>
                 <div style="font-size:18px; font-weight:900; color:var(--text-primary); margin-bottom:6px;">স্বাগতম!</div>
@@ -681,58 +553,39 @@
                 </div>
             </div>
 
-            <!-- অ্যাকশন কার্ড -->
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
                 <div class="action-card" onclick="switchView('search')">
-                    <div class="action-icon" style="background:linear-gradient(135deg,#fef9e7,#fef3c7); color:var(--accent-dark);">
-                        <i class="fas fa-id-card"></i>
-                    </div>
+                    <div class="action-icon" style="background:linear-gradient(135deg,#fef9e7,#fef3c7); color:var(--accent-dark);"><i class="fas fa-id-card"></i></div>
                     <div class="action-label">কার্ড খুঁজুন</div>
                     <div class="action-sub">রেজি. নম্বর দিয়ে</div>
                 </div>
                 <div class="action-card" onclick="switchView('dashboard')">
-                    <div class="action-icon" style="background:linear-gradient(135deg,var(--surface-dim),#e0e9f5); color:var(--primary-mid);">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
+                    <div class="action-icon" style="background:linear-gradient(135deg,var(--surface-dim),#e0e9f5); color:var(--primary-mid);"><i class="fas fa-chart-bar"></i></div>
                     <div class="action-label">ড্যাশবোর্ড</div>
                     <div class="action-sub">ব্যাচ হিসাব</div>
                 </div>
             </div>
 
-            <!-- অনুষ্ঠানের তথ্য -->
             <div class="card">
                 <div class="card-title"><i class="fas fa-star"></i> অনুষ্ঠানের তথ্য</div>
                 <div class="info-row">
                     <div class="info-icon" style="background:#dbeafe; color:var(--primary-soft);"><i class="fas fa-calendar-alt"></i></div>
-                    <div>
-                        <div style="font-size:10px; color:var(--text-muted);">তারিখ</div>
-                        <div style="font-size:13px; font-weight:700; color:var(--text-primary);">শীঘ্রই ঘোষণা করা হবে</div>
-                    </div>
+                    <div><div style="font-size:10px; color:var(--text-muted);">তারিখ</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">শীঘ্রই ঘোষণা করা হবে</div></div>
                 </div>
                 <div class="info-row">
                     <div class="info-icon" style="background:#fce7f3; color:#ec4899;"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <div style="font-size:10px; color:var(--text-muted);">স্থান</div>
-                        <div style="font-size:13px; font-weight:700; color:var(--text-primary);">বিদ্যালয় প্রাঙ্গণ</div>
-                    </div>
+                    <div><div style="font-size:10px; color:var(--text-muted);">স্থান</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">বিদ্যালয় প্রাঙ্গণ</div></div>
                 </div>
                 <div class="info-row">
                     <div class="info-icon" style="background:#fef3c7; color:var(--accent-dark);"><i class="fas fa-tshirt"></i></div>
-                    <div>
-                        <div style="font-size:10px; color:var(--text-muted);">টি-শার্ট</div>
-                        <div style="font-size:13px; font-weight:700; color:var(--text-primary);">প্রত্যেক সদস্যকে দেওয়া হবে</div>
-                    </div>
+                    <div><div style="font-size:10px; color:var(--text-muted);">টি-শার্ট</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">প্রত্যেক সদস্যকে দেওয়া হবে</div></div>
                 </div>
                 <div class="info-row">
                     <div class="info-icon" style="background:#d1fae5; color:#059669;"><i class="fas fa-money-bill-wave"></i></div>
-                    <div>
-                        <div style="font-size:10px; color:var(--text-muted);">নিবন্ধন ফি</div>
-                        <div style="font-size:13px; font-weight:900; color:#059669;">৫০০ টাকা / জন</div>
-                    </div>
+                    <div><div style="font-size:10px; color:var(--text-muted);">নিবন্ধন ফি</div><div style="font-size:13px; font-weight:900; color:#059669;">৫০০ টাকা / জন</div></div>
                 </div>
             </div>
 
-            <!-- সাম্প্রতিক নিবন্ধন -->
             <div class="card">
                 <div class="card-title"><i class="fas fa-clock-rotate-left"></i> সাম্প্রতিক নিবন্ধন</div>
                 <div id="recentList" style="display:flex; flex-direction:column; gap:8px;">
@@ -741,22 +594,17 @@
             </div>
         </div>
 
-        <!-- ════ অনুসন্ধান পেজ ════ -->
+        <!-- অনুসন্ধান পেজ -->
         <div id="page-search" class="page">
             <div style="text-align:center; margin-bottom:16px;">
                 <div style="font-size:28px; margin-bottom:6px;">🔍</div>
                 <div style="font-size:18px; font-weight:900; color:var(--text-primary);">কার্ড অনুসন্ধান</div>
                 <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">রেজিস্ট্রেশন নম্বর বা মোবাইল নম্বর দিয়ে খুঁজুন</div>
             </div>
-
             <div class="search-wrap">
-                <input type="text" id="searchInput" placeholder="RJ2027-0001 বা 01XXXXXXXXX"
-                    onkeydown="if(event.key==='Enter')searchRegistration()">
-                <button class="search-go" onclick="searchRegistration()">
-                    <i class="fas fa-search"></i>
-                </button>
+                <input type="text" id="searchInput" placeholder="RJ2027-0001 বা 01XXXXXXXXX" onkeydown="if(event.key==='Enter')searchRegistration()">
+                <button class="search-go" onclick="searchRegistration()"><i class="fas fa-search"></i></button>
             </div>
-
             <div class="search-hints">
                 <div class="search-hint" onclick="document.getElementById('searchInput').value='RJ2027-';document.getElementById('searchInput').focus();">
                     <i class="fas fa-hashtag" style="font-size:9px; margin-right:2px;"></i> রেজি. নম্বর
@@ -765,13 +613,8 @@
                     <i class="fas fa-phone" style="font-size:9px; margin-right:2px;"></i> মোবাইল নম্বর
                 </div>
             </div>
-
-            <div id="searchLoading" style="display:none; text-align:center; padding:40px 0;">
-                <div class="spinner" style="margin:0 auto;"></div>
-            </div>
-
+            <div id="searchLoading" style="display:none; text-align:center; padding:40px 0;"><div class="spinner" style="margin:0 auto;"></div></div>
             <div id="searchResult" style="display:none; margin-top:16px;"></div>
-
             <div id="searchNotFound" style="display:none;" class="empty-state">
                 <div class="empty-icon"><i class="fas fa-search"></i></div>
                 <div style="font-weight:700; color:var(--text-secondary);">কোনো তথ্য পাওয়া যায়নি</div>
@@ -779,10 +622,10 @@
             </div>
         </div>
 
-        <!-- ════ কার্ড পেজ ════ -->
+        <!-- কার্ড পেজ -->
         <div id="page-card" class="page">
             <div style="text-align:center; margin-bottom:14px;">
-                <div style="font-size:16px; font-weight:800; color:var(--text-primary);">আপনার রেজিস্ট্রেশন কার্ড</div>
+                <div style="font-size:16px; font-weight:800; color:var(--text-primary);">নিবন্ধন কার্ড</div>
                 <div style="font-size:11px; color:var(--text-muted);">কার্ডটি ডাউনলোড বা শেয়ার করুন</div>
             </div>
             <div style="display:flex; justify-content:center;" id="card-printable"></div>
@@ -793,14 +636,13 @@
             </div>
         </div>
 
-        <!-- ════ ড্যাশবোর্ড পেজ ════ -->
+        <!-- ড্যাশবোর্ড পেজ -->
         <div id="page-dashboard" class="page">
             <div style="text-align:center; margin-bottom:16px;">
                 <div style="font-size:28px; margin-bottom:6px;">📊</div>
                 <div style="font-size:18px; font-weight:900; color:var(--text-primary);">ব্যাচ ড্যাশবোর্ড</div>
                 <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">ব্যাচভিত্তিক নিবন্ধনের সারসংক্ষেপ</div>
             </div>
-
             <div class="dash-grid" style="margin-bottom:14px;">
                 <div class="dash-box navy-t">
                     <div style="font-size:18px; font-weight:900; color:var(--primary-light);" id="dash-members">০</div>
@@ -815,67 +657,52 @@
                     <div style="font-size:9px; font-weight:600; color:var(--text-muted);">সংগ্রহ</div>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-title"><i class="fas fa-layer-group"></i> ব্যাচভিত্তিক হিসাব</div>
-                <div id="batchStats" style="display:flex; flex-direction:column; gap:10px;">
-                    <div style="display:flex; justify-content:center; padding:20px 0;"><div class="spinner"></div></div>
-                </div>
+                <div id="batchStats" style="display:flex; flex-direction:column; gap:10px;"><div style="display:flex; justify-content:center; padding:16px 0;"><div class="spinner"></div></div></div>
             </div>
+        </div>
+
+        <!-- নোটিশ পেজ -->
+        <div id="page-notices" class="page">
+            <div style="text-align:center; margin-bottom:16px;">
+                <div style="font-size:28px; margin-bottom:6px;">📢</div>
+                <div style="font-size:18px; font-weight:900; color:var(--text-primary);">নোটিশ বোর্ড</div>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">সকল প্রকাশিত নোটিশ</div>
+            </div>
+            <div id="noticeList" style="display:flex; flex-direction:column; gap:0;"><div style="display:flex; justify-content:center; padding:16px 0;"><div class="spinner"></div></div></div>
         </div>
     </main>
 
-    <!-- টোস্ট -->
-    <div class="toast-wrap" id="toastWrap"></div>
+    <!-- বটম নেভিগেশন -->
+    <nav class="bottom-nav">
+        <div class="nav-inner">
+            <button class="nav-btn active" data-view="home" onclick="switchView('home')">
+                <i class="fas fa-home"></i><span>হোম</span><div class="nav-dot"></div>
+            </button>
+            <button class="nav-btn" data-view="search" onclick="switchView('search')">
+                <i class="fas fa-search"></i><span>অনুসন্ধান</span><div class="nav-dot"></div>
+            </button>
+            <button class="nav-btn" data-view="dashboard" onclick="switchView('dashboard')">
+                <i class="fas fa-chart-bar"></i><span>ড্যাশবোর্ড</span><div class="nav-dot"></div>
+            </button>
+            <button class="nav-btn" data-view="notices" onclick="switchView('notices')">
+                <i class="fas fa-bell"></i><span>নোটিশ</span><div class="nav-dot"></div>
+                <div class="nav-badge" id="navNoticeBadge">0</div>
+            </button>
+        </div>
+    </nav>
 
-    <!-- ═══════════════════════════════════════════
-         নোটিশ মোডাল
-    ═══════════════════════════════════════════ -->
+    <!-- নোটিশ মোডাল -->
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-sheet">
             <div class="modal-handle"></div>
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                <div style="font-size:16px; font-weight:900; color:var(--text-primary);">
-                    <i class="fas fa-bullhorn" style="color:var(--accent); margin-right:6px;"></i> নোটিশ বোর্ড
-                </div>
-                <div onclick="closeNoticeModal()" style="width:32px; height:32px; border-radius:10px; background:var(--surface-dim); display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text-muted);">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            <div id="noticeListContainer">
-                <div style="display:flex; justify-content:center; padding:24px 0;"><div class="spinner"></div></div>
-            </div>
+            <div id="noticeModalContent"></div>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         বটম নেভিগেশন
-    ═══════════════════════════════════════════ -->
-    <nav class="bottom-nav">
-        <div class="nav-inner">
-            <div class="nav-btn active" data-nav="home" onclick="switchView('home')">
-                <i class="fas fa-home"></i>
-                <span>হোম</span>
-                <div class="nav-dot"></div>
-            </div>
-            <div class="nav-btn" data-nav="search" onclick="switchView('search')">
-                <i class="fas fa-search"></i>
-                <span>অনুসন্ধান</span>
-                <div class="nav-dot"></div>
-            </div>
-            <div class="nav-btn" data-nav="notices" onclick="openNoticeModal()">
-                <i class="fas fa-bell"></i>
-                <span>নোটিশ</span>
-                <div class="nav-dot"></div>
-                <div class="nav-badge" id="navNoticeBadge">0</div>
-            </div>
-            <div class="nav-btn" data-nav="dashboard" onclick="switchView('dashboard')">
-                <i class="fas fa-chart-bar"></i>
-                <span>ড্যাশবোর্ড</span>
-                <div class="nav-dot"></div>
-            </div>
-        </div>
-    </nav>
+    <!-- টোস্ট -->
+    <div class="toast-wrap" id="toastWrap"></div>
 
     <script>
     // ================================================================
@@ -887,89 +714,112 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // ================================================================
-    //  গ্লোবাল ভেরিয়েবল
-    // ================================================================
-    let currentView = 'home';
     let currentCardData = null;
-    let allNotices = [];
-    let lastReadNoticeTime = localStorage.getItem('lastReadNoticeTime') || '0';
+    let lastNoticeCount = 0;
 
     // ================================================================
     //  নেভিগেশন
     // ================================================================
     function switchView(view) {
-        currentView = view;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page-' + view)?.classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
 
-        document.querySelectorAll('.nav-btn').forEach(n => {
-            n.classList.toggle('active', n.dataset.nav === view);
-        });
-
-        if (view === 'home') { updateHomeStats(); loadRecent(); }
+        if (view === 'home') loadHome();
         if (view === 'dashboard') renderDashboard();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (view === 'notices') loadNotices();
     }
 
     // ================================================================
     //  Firebase থেকে ডাটা পড়া
     // ================================================================
     async function fetchAll() {
+        const snap = await db.ref('registrations').once('value');
+        if (!snap.exists()) return [];
+        const data = snap.val();
+        return Object.values(data);
+    }
+
+    // ================================================================
+    //  মোবাইল নম্বর মাস্কিং
+    // ================================================================
+    function maskMobile(mobile) {
+        if (!mobile) return '---';
+        const num = String(mobile).replace(/\s/g, '');
+        if (num.length >= 8) {
+            return num.substring(0, 4) + '****' + num.substring(num.length - 2);
+        }
+        return '***';
+    }
+
+    // ================================================================
+    //  পরিমাণ শব্দে (ইংরেজি)
+    // ================================================================
+    function numberToWords(n) {
+        if (!n || isNaN(n)) return '';
+        n = Math.floor(Number(n));
+        const ones = ['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
+            'Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+        const tens = ['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+        if (n === 0) return 'Zero';
+        if (n < 20) return ones[n];
+        if (n < 100) return tens[Math.floor(n/10)] + (n%10 ? ' ' + ones[n%10] : '');
+        if (n < 1000) return ones[Math.floor(n/100)] + ' Hundred' + (n%100 ? ' ' + numberToWords(n%100) : '');
+        if (n < 100000) return numberToWords(Math.floor(n/1000)) + ' Thousand' + (n%1000 ? ' ' + numberToWords(n%1000) : '');
+        if (n < 10000000) return numberToWords(Math.floor(n/100000)) + ' Lakh' + (n%100000 ? ' ' + numberToWords(n%100000) : '');
+        return numberToWords(Math.floor(n/10000000)) + ' Crore' + (n%10000000 ? ' ' + numberToWords(n%10000000) : '');
+    }
+
+    function amountInWords(amount) {
+        if (!amount) return '---';
+        return numberToWords(amount).toUpperCase() + ' TAKA ONLY';
+    }
+
+    // ================================================================
+    //  বাংলা সংখ্যা
+    // ================================================================
+    function toBn(n) { return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]); }
+
+    // ================================================================
+    //  কাউন্টার অ্যানিমেশন
+    // ================================================================
+    function counterAnim(el, target, prefix = '', suffix = '') {
+        if (!el) return;
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 25));
+        const iv = setInterval(() => {
+            cur += step;
+            if (cur >= target) { cur = target; clearInterval(iv); }
+            el.textContent = prefix + toBn(cur) + suffix;
+        }, 30);
+    }
+
+    // ================================================================
+    //  হোম পেজ
+    // ================================================================
+    async function loadHome() {
         try {
-            const snap = await db.ref('registrations').once('value');
-            return snap.exists() ? Object.values(snap.val()) : [];
-        } catch (e) {
-            console.error('Firebase error:', e);
-            showToast('ডাটা লোড করতে সমস্যা হয়েছে', 'error');
-            return [];
-        }
+            const regs = await fetchAll();
+            counterAnim(document.getElementById('stat-members'), regs.length);
+            counterAnim(document.getElementById('stat-participants'), regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0));
+            counterAnim(document.getElementById('stat-amount'), regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0), '৳');
+            renderRecent(regs);
+        } catch (e) { console.error(e); }
     }
 
-    // ================================================================
-    //  হোম পরিসংখ্যান
-    // ================================================================
-    async function updateHomeStats() {
-        const regs = await fetchAll();
-        counterAnim(document.getElementById('stat-members'), regs.length);
-        counterAnim(
-            document.getElementById('stat-participants'),
-            regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0)
-        );
-        counterAnim(
-            document.getElementById('stat-amount'),
-            regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0),
-            '৳'
-        );
-    }
-
-    // ================================================================
-    //  সাম্প্রতিক নিবন্ধন
-    // ================================================================
-    async function loadRecent() {
-        const regs = await fetchAll();
-        const el = document.getElementById('recentList');
-        if (!regs.length) {
-            el.innerHTML = '<div style="text-align:center; padding:12px 0; font-size:13px; color:var(--text-muted);">এখনো কোনো নিবন্ধন হয়নি</div>';
-            return;
-        }
-        const recent = regs.slice(-4).reverse();
-        el.innerHTML = recent.map(r => {
-            const initial = (r.name || '?').charAt(0);
-            const paid = r.paymentStatus === 'Paid';
-            return `
-            <div class="recent-row" onclick="quickSearch('${r.regNo || ''}')">
+    function renderRecent(regs) {
+        const list = document.getElementById('recentList');
+        if (!regs.length) { list.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-muted);font-size:12px;">কোনো নিবন্ধন নেই</div>'; return; }
+        const sorted = [...regs].sort((a, b) => (b.regNo || '').localeCompare(a.regNo || '')).slice(0, 8);
+        list.innerHTML = sorted.map(r => {
+            const initial = (r.name || 'U')[0];
+            return `<div class="recent-row" onclick="quickSearch('${r.regNo || ''}')">
                 <div class="recent-avatar">${initial}</div>
-                <div style="flex:1; min-width:0;">
-                    <div style="font-size:13px; font-weight:700; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${r.name || '---'}</div>
-                    <div style="font-size:10px; color:var(--text-muted);">${r.regNo || '---'} · ${r.batchType || ''} ${r.batchYear || ''}</div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.name || '---'}</div>
+                    <div style="font-size:10px;color:var(--text-muted);">${r.regNo || '---'} · ${r.batchType || ''} ${r.batchYear || ''}</div>
                 </div>
-                <div>
-                    ${paid
-                        ? '<span class="badge-paid" style="font-size:9px; padding:2px 8px; border-radius:6px; font-weight:700;">পরিশোধিত</span>'
-                        : '<span class="badge-unpaid" style="font-size:9px; padding:2px 8px; border-radius:6px; font-weight:700;">অপরিশোধিত</span>'
-                    }
-                </div>
+                <span class="${r.paymentStatus === 'Paid' ? 'badge-paid' : 'badge-unpaid'}">${r.paymentStatus === 'Paid' ? 'পরিশোধিত' : 'অপরিশোধিত'}</span>
             </div>`;
         }).join('');
     }
@@ -979,141 +829,6 @@
         document.getElementById('searchInput').value = regNo;
         switchView('search');
         searchRegistration();
-    }
-
-    // ================================================================
-    //  কাউন্টার অ্যানিমেশন
-    // ================================================================
-    function counterAnim(el, target, prefix = '') {
-        if (!el) return;
-        const dur = 500;
-        const start = parseInt(el.textContent.replace(/[^\d]/g, '')) || 0;
-        const t0 = performance.now();
-        (function step(now) {
-            const p = Math.min((now - t0) / dur, 1);
-            const e = 1 - Math.pow(1 - p, 3);
-            el.textContent = prefix + Math.round(start + (target - start) * e).toLocaleString('bn-BD');
-            if (p < 1) requestAnimationFrame(step);
-        })(t0);
-    }
-
-    // ================================================================
-    //  নোটিশ সিস্টেম — Firebase থেকে পড়া
-    // ================================================================
-    async function loadNotices() {
-        try {
-            const snap = await db.ref('notices').once('value');
-            if (!snap.exists()) {
-                allNotices = [];
-            } else {
-                const data = snap.val();
-                // notices হতে পারে array বা object
-                if (Array.isArray(data)) {
-                    allNotices = data.filter(n => n && n.title);
-                } else {
-                    allNotices = Object.values(data).filter(n => n && n.title);
-                }
-            }
-            // timestamp অনুযায়ী সাজানো (নতুন আগে)
-            allNotices.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-            updateNoticeBadge();
-            updateNoticeBanner();
-        } catch (e) {
-            console.error('Notice load error:', e);
-            allNotices = [];
-        }
-    }
-
-    function updateNoticeBadge() {
-        const unread = allNotices.filter(n => (n.timestamp || 0) > parseInt(lastReadNoticeTime)).length;
-        const headerBadge = document.getElementById('noticeBadge');
-        const navBadge = document.getElementById('navNoticeBadge');
-
-        if (unread > 0) {
-            headerBadge.textContent = unread > 9 ? '9+' : unread;
-            headerBadge.classList.add('show');
-            navBadge.textContent = unread > 9 ? '9+' : unread;
-            navBadge.classList.add('show');
-        } else {
-            headerBadge.classList.remove('show');
-            navBadge.classList.remove('show');
-        }
-    }
-
-    function updateNoticeBanner() {
-        const banner = document.getElementById('noticeBanner');
-        if (!allNotices.length) {
-            banner.style.display = 'none';
-            return;
-        }
-        const latest = allNotices[0];
-        document.getElementById('bannerTitle').textContent = latest.title || '---';
-        document.getElementById('bannerTime').textContent = formatTime(latest.timestamp);
-        banner.style.display = 'block';
-    }
-
-    function openNoticeModal() {
-        // পড়া হয়ে গেছে হিসেবে চিহ্নিত
-        if (allNotices.length) {
-            const latestTime = allNotices[0].timestamp || Date.now();
-            localStorage.setItem('lastReadNoticeTime', String(latestTime));
-            lastReadNoticeTime = String(latestTime);
-            updateNoticeBadge();
-        }
-
-        const modal = document.getElementById('noticeModal');
-        modal.classList.add('show');
-        renderNoticeList();
-    }
-
-    function closeNoticeModal() {
-        document.getElementById('noticeModal').classList.remove('show');
-    }
-
-    function renderNoticeList() {
-        const container = document.getElementById('noticeListContainer');
-        if (!allNotices.length) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon"><i class="fas fa-bell-slash"></i></div>
-                    <div style="font-weight:700; color:var(--text-secondary);">কোনো নোটিশ নেই</div>
-                    <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">এখনো কোনো নোটিশ প্রকাশ করা হয়নি</div>
-                </div>`;
-            return;
-        }
-
-        container.innerHTML = allNotices.map(n => {
-            const priority = n.priority || 'general';
-            const tagLabel = priority === 'urgent' ? 'জরুরি' : priority === 'important' ? 'গুরুত্বপূর্ণ' : 'সাধারণ';
-            return `
-            <div class="notice-item ${priority}">
-                <div class="notice-tag ${priority}">${tagLabel}</div>
-                <div class="notice-headline">${n.title || '---'}</div>
-                ${n.body ? `<div class="notice-body">${n.body}</div>` : ''}
-                <div class="notice-meta">
-                    <span><i class="fas fa-clock"></i> ${formatTime(n.timestamp)}</span>
-                    ${n.author ? `<span><i class="fas fa-user"></i> ${n.author}</span>` : ''}
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    // মোডালের বাইরে ক্লিক করলে বন্ধ হবে
-    document.getElementById('noticeModal').addEventListener('click', function(e) {
-        if (e.target === this) closeNoticeModal();
-    });
-
-    function formatTime(ts) {
-        if (!ts) return '---';
-        const d = new Date(ts);
-        if (isNaN(d.getTime())) return '---';
-        const months = ['জানু','ফেব্রু','মার্চ','এপ্রি','মে','জুন','জুলা','আগ','সেপ্টে','অক্টো','নভে','ডিসে'];
-        const h = d.getHours();
-        const m = d.getMinutes().toString().padStart(2, '0');
-        const ampm = h >= 12 ? 'PM' : 'AM';
-        const h12 = h % 12 || 12;
-        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}, ${h12}:${m} ${ampm}`;
     }
 
     // ================================================================
@@ -1128,29 +843,21 @@
         document.getElementById('searchNotFound').style.display = 'none';
 
         try {
+            const regs = await fetchAll();
             let found = null;
 
-            // রেজি. নম্বর দিয়ে
-            const snap = await db.ref('registrations/' + q).once('value');
-            if (snap.exists()) {
-                found = snap.val();
+            if (q.toUpperCase().startsWith('RJ')) {
+                found = regs.find(r => (r.regNo || '').toUpperCase() === q.toUpperCase()) || null;
             } else {
-                // মোবাইল দিয়ে
-                const all = await db.ref('registrations').once('value');
-                if (all.exists()) {
-                    const vals = Object.values(all.val());
-                    found = vals.find(r => r.mobile === q) || null;
-                }
+                found = regs.find(r => r.mobile === q) || null;
             }
 
             document.getElementById('searchLoading').style.display = 'none';
 
             if (found) {
                 currentCardData = found;
-                const container = document.getElementById('searchResult');
-                container.innerHTML = buildCardHTML(found);
-                container.style.display = '';
-                showToast('তথ্য পাওয়া গেছে!', 'success');
+                document.getElementById('searchResult').innerHTML = buildDetailCardHTML(found);
+                document.getElementById('searchResult').style.display = '';
             } else {
                 document.getElementById('searchNotFound').style.display = '';
             }
@@ -1163,55 +870,51 @@
     }
 
     // ================================================================
-    //  মোবাইল নম্বর মাস্কিং (01XXX****XX)
+    //  টেবিল-স্টাইল ডিটেইল কার্ড HTML
     // ================================================================
-    function maskMobile(mobile) {
-        if (!mobile) return '---';
-        const num = String(mobile).replace(/\s/g, '');
-        if (num.length >= 8) {
-            return num.substring(0, 4) + '****' + num.substring(num.length - 2);
-        }
-        return '***';
-    }
-
-    // ================================================================
-    //  কার্ড HTML তৈরি
-    // ================================================================
-    function buildCardHTML(reg) {
+    function buildDetailCardHTML(reg) {
         const photo = reg.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(reg.name || 'U')}&size=120&background=d4af37&color=041529&font-size=0.4&bold=true`;
         const badge = reg.paymentStatus === 'Paid'
-            ? '<span class="badge-paid" style="display:inline-block; padding:3px 10px; border-radius:8px; font-size:10px; font-weight:800;">পরিশোধিত</span>'
-            : '<span class="badge-unpaid" style="display:inline-block; padding:3px 10px; border-radius:8px; font-size:10px; font-weight:800;">অপরিশোধিত</span>';
+            ? '<span class="badge-paid">পরিশোধিত</span>'
+            : '<span class="badge-unpaid">অপরিশোধিত</span>';
+
+        const fields = [
+            ['Name', reg.name || '---'],
+            ['Address', reg.address || '---'],
+            ['Mobile Number', maskMobile(reg.mobile)],
+            ['Participant Type', 'Ex-Student'],
+            ['Batch Type', reg.batchType || '---'],
+            ['Batch Year', reg.batchYear || '---'],
+            ['Number of Participants', (reg.participants || 1) + ' Person'],
+            ['T-Shirt Size', (reg.tshirtSize || '---') + '-Size'],
+            ['Payment Method', reg.paymentMethod || '---'],
+            ['Amount (TK)', '৳' + (reg.amount || 0)],
+            ['In Words', amountInWords(reg.amount)],
+            ['Received By', (reg.batchYear || '---') + ' - ' + (reg.name || '---')],
+        ];
+
+        const rows = fields.map((f, i) => `<tr><td>${f[0]}</td><td>${f[1]}</td></tr>`).join('');
 
         return `
-        <div class="reg-card" id="digitalCard">
-            <div class="card-head">
-                <div style="color:var(--accent-light); font-size:9px; letter-spacing:.3em; font-weight:700; position:relative; z-index:1;">SILVER JUBILEE</div>
-                <div style="font-size:17px; font-weight:900; position:relative; z-index:1;">রজত জয়ন্তী ২০২৭</div>
-                <div style="color:rgba(255,255,255,0.35); font-size:9px; margin-top:2px; position:relative; z-index:1;">KCG United High School</div>
+        <div class="detail-card" id="digitalCard">
+            <div class="detail-card-header">
+                <h2>রজত জয়ন্তী ২০২৭</h2>
+                <p>SILVER JUBILEE</p>
+                <div class="reg-no">${reg.regNo || '---'}</div>
             </div>
-            <div class="gold-line"></div>
-            <div style="padding:16px 16px; display:flex; gap:12px;">
-                <div style="flex-shrink:0;">
-                    <img src="${photo}" alt="ছবি" style="width:82px; height:105px; border-radius:12px; object-fit:cover; border:2.5px solid var(--accent); box-shadow:0 4px 12px rgba(212,175,55,0.18);">
-                </div>
-                <div style="flex:1; text-align:left;">
-                    <div style="font-size:9px; color:var(--text-muted); font-weight:600;">নাম</div>
-                    <div style="font-size:14px; font-weight:900; color:var(--text-primary); margin-bottom:6px; line-height:1.2;">${reg.name || '---'}</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 10px; font-size:10px;">
-                        <div><span style="color:var(--text-muted);">মোবাইল:</span> <span style="font-weight:700; color:var(--primary-light);">${maskMobile(reg.mobile)}</span></div>
-                        <div><span style="color:var(--text-muted);">ব্যাচ:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.batchType || ''} ${reg.batchYear || ''}</span></div>
-                        <div><span style="color:var(--text-muted);">সদস্য:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.participants || 1} জন</span></div>
-                        <div><span style="color:var(--text-muted);">টি-শার্ট:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.tshirtSize || '---'}</span></div>
-                        <div><span style="color:var(--text-muted);">পেমেন্ট:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.paymentMethod || '---'}</span></div>
-                        <div><span style="color:var(--text-muted);">পরিমাণ:</span> <span style="font-weight:900; color:var(--text-primary);">৳${reg.amount || 0}</span></div>
-                    </div>
-                    <div style="margin-top:8px;">${badge}</div>
-                </div>
+            <div class="detail-gold-line"></div>
+            <div class="detail-card-photo">
+                <img src="${photo}" alt="ছবি">
             </div>
-            <div class="gold-line"></div>
-            <div class="card-foot">
-                <span style="color:var(--accent-light); font-size:12px; font-weight:900; letter-spacing:2px;">${reg.regNo || '---'}</span>
+            <table class="detail-table">
+                ${rows}
+            </table>
+            <div style="padding:8px 16px; text-align:center;">
+                ${badge}
+            </div>
+            <div class="detail-gold-line"></div>
+            <div class="detail-card-footer">
+                <span>KCG United High School</span>
             </div>
         </div>`;
     }
@@ -1250,97 +953,147 @@
     // ================================================================
     async function renderDashboard() {
         const regs = await fetchAll();
-
         counterAnim(document.getElementById('dash-members'), regs.length);
-        counterAnim(
-            document.getElementById('dash-participants'),
-            regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0)
-        );
-        counterAnim(
-            document.getElementById('dash-amount'),
-            regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0),
-            '৳'
-        );
+        counterAnim(document.getElementById('dash-participants'), regs.reduce((s, r) => s + (parseInt(r.participants) || 1), 0));
+        counterAnim(document.getElementById('dash-amount'), regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0), '৳');
 
         const batchMap = {};
         regs.forEach(r => {
-            const k = (r.batchType || '') + ' ' + (r.batchYear || '');
-            if (!batchMap[k]) batchMap[k] = { m: 0, p: 0, a: 0 };
-            batchMap[k].m++;
-            batchMap[k].p += (parseInt(r.participants) || 1);
-            if (r.paymentStatus === 'Paid') batchMap[k].a += (parseInt(r.amount) || 0);
+            const key = (r.batchType || '?') + ' ' + (r.batchYear || '?');
+            if (!batchMap[key]) batchMap[key] = { count: 0, participants: 0, paid: 0 };
+            batchMap[key].count++;
+            batchMap[key].participants += (parseInt(r.participants) || 1);
+            if (r.paymentStatus === 'Paid') batchMap[key].paid += (parseInt(r.amount) || 0);
         });
 
-        const el = document.getElementById('batchStats');
-        const keys = Object.keys(batchMap).sort();
+        const maxCount = Math.max(1, ...Object.values(batchMap).map(b => b.count));
+        const container = document.getElementById('batchStats');
 
-        if (!keys.length) {
-            el.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-chart-bar"></i></div><div style="font-weight:600; color:var(--text-muted);">কোনো নিবন্ধন নেই</div></div>';
+        if (!Object.keys(batchMap).length) {
+            container.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-muted);font-size:12px;">কোনো তথ্য নেই</div>';
             return;
         }
 
-        const maxM = Math.max(...keys.map(k => batchMap[k].m));
-        const colors = [
-            'linear-gradient(90deg, var(--primary), var(--primary-soft))',
-            'linear-gradient(90deg, var(--accent-dark), var(--accent-light))',
-            'linear-gradient(90deg, #059669, #34d399)',
-            'linear-gradient(90deg, #7c3aed, #a78bfa)',
-            'linear-gradient(90deg, #db2777, #f472b6)',
-        ];
-
-        el.innerHTML = keys.map((k, i) => {
-            const b = batchMap[k];
-            const w = Math.max(14, (b.m / maxM) * 100);
-            return `
-            <div style="background:var(--surface-dim); border-radius:12px; padding:12px 14px;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                    <span style="font-weight:800; font-size:13px; color:var(--text-primary);">${k}</span>
-                    <div style="display:flex; gap:8px; font-size:10px; color:var(--text-muted);">
-                        <span><b style="color:var(--primary-light);">${b.m}</b> সদস্য</span>
-                        <span><b style="color:var(--primary-light);">${b.p}</b> অংশগ্রহণ</span>
-                        <span><b style="color:#059669;">৳${b.a}</b></span>
-                    </div>
+        container.innerHTML = Object.entries(batchMap).sort((a,b) => b[1].count - a[1].count).map(([batch, info]) => {
+            const pct = Math.round((info.count / maxCount) * 100);
+            return `<div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span style="font-weight:800;color:var(--text-primary);">${batch}</span>
+                    <span style="color:var(--text-muted);">${toBn(info.count)} জন · ৳${toBn(info.paid)}</span>
                 </div>
-                <div class="bar-bg">
-                    <div class="bar-fill" style="width:${w}%; background:${colors[i % colors.length]};">
-                        <span>${b.m}</span>
-                    </div>
-                </div>
+                <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"><span>${toBn(info.count)}</span></div></div>
             </div>`;
         }).join('');
     }
+
+    // ================================================================
+    //  নোটিশ
+    // ================================================================
+    async function loadNotices() {
+        try {
+            const snap = await db.ref('notices').orderByChild('timestamp').once('value');
+            const list = document.getElementById('noticeList');
+            if (!snap.exists()) { list.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-bell-slash"></i></div><div style="font-weight:700;color:var(--text-secondary);">কোনো নোটিশ নেই</div></div>'; return; }
+
+            const notices = Object.values(snap.val()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            list.innerHTML = notices.map(n => {
+                const d = n.timestamp ? new Date(n.timestamp) : null;
+                const time = d ? d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+                return `<div class="notice-item ${n.priority || 'general'}">
+                    <span class="notice-tag ${n.priority || 'general'}">${n.priority === 'urgent' ? 'জরুরি' : n.priority === 'important' ? 'গুরুত্বপূর্ণ' : 'সাধারণ'}</span>
+                    <div class="notice-headline">${n.title || '---'}</div>
+                    ${n.body ? `<div class="notice-body">${n.body}</div>` : ''}
+                    <div class="notice-meta"><span><i class="fas fa-clock"></i>${time}</span>${n.author ? `<span><i class="fas fa-user"></i>${n.author}</span>` : ''}</div>
+                </div>`;
+            }).join('');
+        } catch (e) { console.error(e); }
+    }
+
+    // নোটিশ রিয়েলটাইম লিসেনার
+    function listenNotices() {
+        db.ref('notices').on('value', snap => {
+            let count = 0;
+            let latest = null;
+            if (snap.exists()) {
+                const notices = Object.values(snap.val());
+                count = notices.length;
+                latest = notices.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))[0];
+            }
+
+            // ব্যাজ
+            const badgeEl = document.getElementById('noticeBadge');
+            const navBadge = document.getElementById('navNoticeBadge');
+            if (count > lastNoticeCount && lastNoticeCount > 0) {
+                if (badgeEl) { badgeEl.textContent = count; badgeEl.classList.add('show'); }
+                if (navBadge) { navBadge.textContent = count; navBadge.classList.add('show'); }
+            }
+            lastNoticeCount = count;
+
+            // ব্যানার
+            if (latest) {
+                document.getElementById('noticeBanner').style.display = '';
+                document.getElementById('bannerTitle').textContent = latest.title || '---';
+                const d = latest.timestamp ? new Date(latest.timestamp) : null;
+                document.getElementById('bannerTime').textContent = d ? d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : '';
+            } else {
+                document.getElementById('noticeBanner').style.display = 'none';
+            }
+        });
+    }
+
+    function openNoticeModal() {
+        db.ref('notices').orderByChild('timestamp').once('value').then(snap => {
+            const content = document.getElementById('noticeModalContent');
+            if (!snap.exists()) {
+                content.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);">কোনো নোটিশ নেই</div>';
+            } else {
+                const notices = Object.values(snap.val()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                content.innerHTML = notices.map(n => {
+                    const d = n.timestamp ? new Date(n.timestamp) : null;
+                    const time = d ? d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : '';
+                    return `<div style="margin-bottom:16px;padding:14px;border-radius:14px;background:var(--surface-dim);border-left:4px solid ${n.priority === 'urgent' ? 'var(--danger)' : n.priority === 'important' ? 'var(--accent)' : 'var(--primary-soft)'};">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                            <span class="notice-tag ${n.priority || 'general'}">${n.priority === 'urgent' ? 'জরুরি' : n.priority === 'important' ? 'গুরুত্বপূর্ণ' : 'সাধারণ'}</span>
+                        </div>
+                        <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:4px;">${n.title || '---'}</div>
+                        ${n.body ? `<div style="font-size:12px;color:var(--text-secondary);line-height:1.6;white-space:pre-wrap;">${n.body}</div>` : ''}
+                        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;"><i class="fas fa-clock"></i> ${time}</div>
+                    </div>`;
+                }).join('');
+            }
+            document.getElementById('noticeModal').classList.add('show');
+
+            // ব্যাজ হাইড
+            document.getElementById('noticeBadge').classList.remove('show');
+            document.getElementById('navNoticeBadge').classList.remove('show');
+        });
+    }
+
+    function closeNoticeModal() {
+        document.getElementById('noticeModal').classList.remove('show');
+    }
+
+    document.getElementById('noticeModal').addEventListener('click', function(e) {
+        if (e.target === this) closeNoticeModal();
+    });
 
     // ================================================================
     //  টোস্ট
     // ================================================================
     function showToast(msg, type = 'info') {
         const wrap = document.getElementById('toastWrap');
-        const t = document.createElement('div');
-        t.className = `toast-msg toast-${type}`;
-        const ico = type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle';
-        t.innerHTML = `<i class="fas fa-${ico}"></i> ${msg}`;
-        wrap.appendChild(t);
-        setTimeout(() => {
-            t.classList.add('out');
-            setTimeout(() => t.remove(), 300);
-        }, 2500);
+        const el = document.createElement('div');
+        el.className = `toast-msg toast-${type}`;
+        el.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
+        wrap.appendChild(el);
+        setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, 2500);
     }
 
     // ================================================================
-    //  Firebase Realtime Listener — নোটিশ পরিবর্তন হলে আপডেট
+    //  ইনিশিয়ালাইজ
     // ================================================================
-    db.ref('notices').on('value', () => {
-        loadNotices();
-    });
-
-    // ================================================================
-    //  ইনিশিয়ালাইজেশন
-    // ================================================================
-    document.addEventListener('DOMContentLoaded', () => {
-        updateHomeStats();
-        loadRecent();
-        loadNotices();
-    });
+    loadHome();
+    listenNotices();
     </script>
 </body>
 </html>
