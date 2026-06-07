@@ -148,7 +148,7 @@
            কন্টেন্ট
         ═══════════════════════════════════════════ */
         .content-area {
-            padding: 18px 16px 90px;
+            padding: 18px 16px 110px;
             max-width: 480px;
             margin: 0 auto;
         }
@@ -277,33 +277,33 @@
         ═══════════════════════════════════════════ */
         .detail-card {
             background: var(--surface);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid rgba(11,29,58,0.06);
+            box-shadow: 0 6px 28px rgba(11,29,58,0.12);
+            border: 2px solid var(--accent);
             max-width: 100%;
         }
         .detail-card-header {
             background: linear-gradient(160deg, var(--primary), var(--primary-light), var(--primary-mid));
-            padding: 16px 20px;
+            padding: 12px 16px;
             text-align: center;
             color: #fff;
             position: relative;
         }
         .detail-card-header::before {
             content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(212,175,55,0.08) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 70%, rgba(212,175,55,0.1) 0%, transparent 50%);
         }
         .detail-card-header h2 {
-            font-size: 16px; font-weight: 900; position: relative; z-index: 1;
+            font-size: 14px; font-weight: 900; position: relative; z-index: 1;
         }
         .detail-card-header p {
-            font-size: 9px; letter-spacing: .3em; color: var(--accent-light);
-            font-weight: 700; position: relative; z-index: 1; margin-top: 2px;
+            font-size: 8px; letter-spacing: .3em; color: var(--accent-light);
+            font-weight: 700; position: relative; z-index: 1; margin-top: 1px;
         }
         .detail-card-header .reg-no {
-            font-size: 13px; font-weight: 900; color: var(--accent-light);
-            letter-spacing: 2px; margin-top: 6px; position: relative; z-index: 1;
+            font-size: 12px; font-weight: 900; color: var(--accent-light);
+            letter-spacing: 2px; margin-top: 4px; position: relative; z-index: 1;
         }
         .detail-gold-line {
             height: 3px;
@@ -311,14 +311,14 @@
         }
         .detail-card-photo {
             text-align: center;
-            padding: 16px 20px 8px;
+            padding: 10px 16px 4px;
             background: var(--surface);
         }
         .detail-card-photo img {
-            width: 90px; height: 115px;
-            border-radius: 14px; object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 4px 16px rgba(212,175,55,0.2);
+            width: 70px; height: 90px;
+            border-radius: 10px; object-fit: cover;
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 3px 12px rgba(212,175,55,0.18);
         }
         .detail-table {
             width: 100%;
@@ -327,8 +327,8 @@
         .detail-table tr:nth-child(even) { background: #f6f8fc; }
         .detail-table tr:nth-child(odd) { background: #ffffff; }
         .detail-table td {
-            padding: 10px 16px;
-            font-size: 12px;
+            padding: 7px 12px;
+            font-size: 11px;
             border-bottom: 1px solid var(--surface-muted);
             vertical-align: middle;
         }
@@ -336,21 +336,23 @@
             font-weight: 700;
             color: var(--primary-soft);
             white-space: nowrap;
-            width: 42%;
+            width: 40%;
+            font-size: 10px;
         }
         .detail-table td:last-child {
             font-weight: 600;
             color: var(--text-primary);
             word-break: break-word;
+            font-size: 11px;
         }
         .detail-table tr:last-child td { border-bottom: none; }
         .detail-card-footer {
             background: var(--primary);
-            padding: 10px 20px;
+            padding: 8px 16px;
             text-align: center;
         }
-        .detail-card-footer span {
-            color: var(--accent-light); font-size: 11px; font-weight: 700; letter-spacing: .5px;
+        .detail-card-footer .school-name {
+            color: var(--accent-light); font-size: 10px; font-weight: 700; letter-spacing: .5px;
         }
         .badge-paid { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
         .badge-unpaid { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
@@ -484,11 +486,56 @@
         @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         .modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 16px; }
 
+        /* ═══════════════════════════════════════════
+           অ্যাপ ফুটার - ডেভেলপার ক্রেডিট
+        ═══════════════════════════════════════════ */
+        .app-footer-credit {
+            position: fixed;
+            bottom: 60px;
+            left: 0; right: 0;
+            text-align: center;
+            padding: 6px 16px;
+            z-index: 50;
+            pointer-events: none;
+            background: linear-gradient(0deg, var(--surface-dim) 0%, transparent 100%);
+        }
+        .credit-divider {
+            margin-bottom: 3px;
+        }
+        .credit-diamond {
+            font-size: 6px;
+            color: var(--accent);
+            opacity: 0.4;
+        }
+        .credit-line {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+        .credit-name {
+            font-weight: 800;
+            color: var(--primary-soft);
+            letter-spacing: 1px;
+        }
+        .credit-sep {
+            color: var(--accent);
+            opacity: 0.5;
+            margin: 0 3px;
+        }
+        .credit-batch {
+            font-weight: 700;
+            color: var(--accent-dark);
+            letter-spacing: 0.5px;
+        }
+
         @media print {
             body * { visibility: hidden !important; }
             #card-printable, #card-printable * { visibility: visible !important; }
             #card-printable { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); }
             .bottom-nav { display: none !important; }
+            .app-footer-credit { display: none !important; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -699,6 +746,12 @@
             <div class="modal-handle"></div>
             <div id="noticeModalContent"></div>
         </div>
+    </div>
+
+    <!-- অ্যাপ ফুটার - ডেভেলপার ক্রেডিট -->
+    <div class="app-footer-credit">
+        <div class="credit-divider"><span class="credit-diamond">&#9670;</span></div>
+        <div class="credit-line">Developed By <span class="credit-name">S@ju</span> <span class="credit-sep">|</span> <span class="credit-batch">2020 SSC Batch</span></div>
     </div>
 
     <!-- টোস্ট -->
@@ -914,7 +967,7 @@
             </div>
             <div class="detail-gold-line"></div>
             <div class="detail-card-footer">
-                <span>KCG United High School</span>
+                <div class="school-name">KCG United High School</div>
             </div>
         </div>`;
     }
