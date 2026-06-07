@@ -676,10 +676,10 @@
                 <div style="font-size:11px; color:var(--text-muted);">কার্ডটি ডাউনলোড বা শেয়ার করুন</div>
             </div>
             <div style="display:flex; justify-content:center;" id="card-printable"></div>
-            <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
-                <button onclick="printCard()" class="act-btn print"><i class="fas fa-print"></i> প্রিন্ট</button>
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap;">
                 <button onclick="downloadCard()" class="act-btn download"><i class="fas fa-download"></i> ডাউনলোড</button>
                 <button onclick="shareCard()" class="act-btn share"><i class="fas fa-share-alt"></i> শেয়ার</button>
+                <button onclick="printCard()" class="act-btn print"><i class="fas fa-print"></i> প্রিন্ট</button>
             </div>
         </div>
 
@@ -909,7 +909,12 @@
 
             if (found) {
                 currentCardData = found;
-                document.getElementById('searchResult').innerHTML = buildDetailCardHTML(found);
+                const regNo = found.regNo || 'RJ2027';
+                document.getElementById('searchResult').innerHTML = buildDetailCardHTML(found) + `
+                <div style="display:flex; justify-content:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
+                    <button onclick="downloadCard()" class="act-btn download" id="btnDownload"><i class="fas fa-download"></i> ডাউনলোড</button>
+                    <button onclick="shareCard()" class="act-btn share"><i class="fas fa-share-alt"></i> শেয়ার</button>
+                </div>`;
                 document.getElementById('searchResult').style.display = '';
             } else {
                 document.getElementById('searchNotFound').style.display = '';
@@ -979,15 +984,43 @@
 
     function downloadCard() {
         const card = document.getElementById('digitalCard');
-        if (typeof html2canvas === 'function') {
-            html2canvas(card, { backgroundColor: null, scale: 2 }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'RJ2027-card.png';
-                link.href = canvas.toDataURL();
-                link.click();
-                showToast('কার্ড ডাউনলোড হচ্ছে', 'success');
-            }).catch(() => showToast('ডাউনলোডে সমস্যা', 'error'));
-        }
+        if (!card) { showToast('কার্ড পাওয়া যায়নি', 'error'); return; }
+
+        const btnDl = document.getElementById('btnDownload') || document.querySelector('.act-btn.download');
+        const origHtml = btnDl ? btnDl.innerHTML : '';
+        if (btnDl) { btnDl.disabled = true; btnDl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> হচ্ছে...'; }
+
+        showToast('কার্ড তৈরি হচ্ছে...', 'info');
+
+        setTimeout(() => {
+            if (typeof html2canvas === 'function') {
+                html2canvas(card, {
+                    backgroundColor: '#ffffff',
+                    scale: 3,
+                    useCORS: true,
+                    allowTaint: false,
+                    logging: false,
+                    width: card.offsetWidth,
+                    height: card.offsetHeight
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    const regNo = currentCardData ? (currentCardData.regNo || 'RJ2027') : 'RJ2027';
+                    const name = currentCardData ? (currentCardData.name || '') : '';
+                    link.download = regNo + (name ? '-' + name.replace(/\s+/g, '_') : '') + '.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.click();
+                    showToast('কার্ড ডাউনলোড হয়েছে!', 'success');
+                }).catch(err => {
+                    console.error(err);
+                    showToast('ডাউনলোডে সমস্যা হয়েছে', 'error');
+                }).finally(() => {
+                    if (btnDl) { btnDl.disabled = false; btnDl.innerHTML = origHtml || '<i class="fas fa-download"></i> ডাউনলোড'; }
+                });
+            } else {
+                showToast('ডাউনলোড সুবিধা লোড হয়নি', 'error');
+                if (btnDl) { btnDl.disabled = false; btnDl.innerHTML = origHtml || '<i class="fas fa-download"></i> ডাউনলোড'; }
+            }
+        }, 300);
     }
 
     function shareCard() {
