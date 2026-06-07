@@ -1163,6 +1163,18 @@
     }
 
     // ================================================================
+    //  মোবাইল নম্বর মাস্কিং (01XXX****XX)
+    // ================================================================
+    function maskMobile(mobile) {
+        if (!mobile) return '---';
+        const num = String(mobile).replace(/\s/g, '');
+        if (num.length >= 8) {
+            return num.substring(0, 4) + '****' + num.substring(num.length - 2);
+        }
+        return '***';
+    }
+
+    // ================================================================
     //  কার্ড HTML তৈরি
     // ================================================================
     function buildCardHTML(reg) {
@@ -1187,7 +1199,7 @@
                     <div style="font-size:9px; color:var(--text-muted); font-weight:600;">নাম</div>
                     <div style="font-size:14px; font-weight:900; color:var(--text-primary); margin-bottom:6px; line-height:1.2;">${reg.name || '---'}</div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 10px; font-size:10px;">
-                        <div><span style="color:var(--text-muted);">মোবাইল:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.mobile || '---'}</span></div>
+                        <div><span style="color:var(--text-muted);">মোবাইল:</span> <span style="font-weight:700; color:var(--primary-light);">${maskMobile(reg.mobile)}</span></div>
                         <div><span style="color:var(--text-muted);">ব্যাচ:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.batchType || ''} ${reg.batchYear || ''}</span></div>
                         <div><span style="color:var(--text-muted);">সদস্য:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.participants || 1} জন</span></div>
                         <div><span style="color:var(--text-muted);">টি-শার্ট:</span> <span style="font-weight:700; color:var(--primary-light);">${reg.tshirtSize || '---'}</span></div>
