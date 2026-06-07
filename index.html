@@ -499,6 +499,9 @@
             pointer-events: none;
             background: linear-gradient(0deg, var(--surface-dim) 0%, transparent 100%);
         }
+        .app-footer-credit a {
+            pointer-events: auto;
+        }
         .credit-divider {
             margin-bottom: 3px;
         }
@@ -519,7 +522,9 @@
             color: var(--primary-soft);
             letter-spacing: 1px;
             cursor: pointer;
-            text-decoration: none;
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            text-underline-offset: 3px;
             transition: color .2s, text-shadow .2s;
         }
         .credit-name:hover {
