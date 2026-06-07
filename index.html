@@ -518,6 +518,16 @@
             font-weight: 800;
             color: var(--primary-soft);
             letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color .2s, text-shadow .2s;
+        }
+        .credit-name:hover {
+            color: var(--accent-dark);
+            text-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
+        .credit-name:active {
+            opacity: 0.7;
         }
         .credit-sep {
             color: var(--accent);
@@ -613,24 +623,34 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-title"><i class="fas fa-star"></i> অনুষ্ঠানের তথ্য</div>
-                <div class="info-row">
-                    <div class="info-icon" style="background:#dbeafe; color:var(--primary-soft);"><i class="fas fa-calendar-alt"></i></div>
-                    <div><div style="font-size:10px; color:var(--text-muted);">তারিখ</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">শীঘ্রই ঘোষণা করা হবে</div></div>
+            <div class="card" id="eventInfoCard">
+                <div class="card-title" style="justify-content:space-between;">
+                    <span style="display:flex; align-items:center; gap:8px;"><i class="fas fa-star"></i> অনুষ্ঠানের তথ্য</span>
+                    <button onclick="refreshEventInfo()" style="background:none; border:none; cursor:pointer; color:var(--primary-soft); font-size:16px; padding:4px;" id="eventRefreshBtn" title="রিফ্রেশ"><i class="fas fa-sync-alt"></i></button>
                 </div>
-                <div class="info-row">
-                    <div class="info-icon" style="background:#fce7f3; color:#ec4899;"><i class="fas fa-map-marker-alt"></i></div>
-                    <div><div style="font-size:10px; color:var(--text-muted);">স্থান</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">বিদ্যালয় প্রাঙ্গণ</div></div>
+                <div id="eventInfoLoading" style="display:none; text-align:center; padding:8px 0;">
+                    <div class="spinner" style="margin:0 auto; width:20px; height:20px;"></div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-top:4px;">আপডেট হচ্ছে...</div>
                 </div>
-                <div class="info-row">
-                    <div class="info-icon" style="background:#fef3c7; color:var(--accent-dark);"><i class="fas fa-tshirt"></i></div>
-                    <div><div style="font-size:10px; color:var(--text-muted);">টি-শার্ট</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">প্রত্যেক সদস্যকে দেওয়া হবে</div></div>
+                <div id="eventInfoContent">
+                    <div class="info-row">
+                        <div class="info-icon" style="background:#dbeafe; color:var(--primary-soft);"><i class="fas fa-calendar-alt"></i></div>
+                        <div><div style="font-size:10px; color:var(--text-muted);">তারিখ</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);" id="event-date">শীঘ্রই ঘোষণা করা হবে</div></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background:#fce7f3; color:#ec4899;"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><div style="font-size:10px; color:var(--text-muted);">স্থান</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);" id="event-venue">বিদ্যালয় প্রাঙ্গণ</div></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background:#fef3c7; color:var(--accent-dark);"><i class="fas fa-tshirt"></i></div>
+                        <div><div style="font-size:10px; color:var(--text-muted);">টি-শার্ট</div><div style="font-size:13px; font-weight:700; color:var(--text-primary);" id="event-tshirt">প্রত্যেক সদস্যকে দেওয়া হবে</div></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-icon" style="background:#d1fae5; color:#059669;"><i class="fas fa-money-bill-wave"></i></div>
+                        <div><div style="font-size:10px; color:var(--text-muted);">নিবন্ধন ফি</div><div style="font-size:13px; font-weight:900; color:#059669;" id="event-fee">৫০০ টাকা / জন</div></div>
+                    </div>
                 </div>
-                <div class="info-row">
-                    <div class="info-icon" style="background:#d1fae5; color:#059669;"><i class="fas fa-money-bill-wave"></i></div>
-                    <div><div style="font-size:10px; color:var(--text-muted);">নিবন্ধন ফি</div><div style="font-size:13px; font-weight:900; color:#059669;">৫০০ টাকা / জন</div></div>
-                </div>
+                <div id="eventUpdateStatus" style="text-align:right; font-size:9px; color:var(--text-muted); margin-top:6px; opacity:0.6;"></div>
             </div>
 
             <div class="card">
@@ -751,7 +771,7 @@
     <!-- অ্যাপ ফুটার - ডেভেলপার ক্রেডিট -->
     <div class="app-footer-credit">
         <div class="credit-divider"><span class="credit-diamond">&#9670;</span></div>
-        <div class="credit-line">Developed By <span class="credit-name">S@ju</span> <span class="credit-sep">|</span> <span class="credit-batch">2020 SSC Batch</span></div>
+        <div class="credit-line">Developed By <a class="credit-name" href="https://mrsaju.space-z.ai" target="_blank" rel="noopener">S@ju</a> <span class="credit-sep">|</span> <span class="credit-batch">2020 SSC Batch</span></div>
     </div>
 
     <!-- টোস্ট -->
@@ -858,6 +878,79 @@
             counterAnim(document.getElementById('stat-amount'), regs.filter(r => r.paymentStatus === 'Paid').reduce((s, r) => s + (parseInt(r.amount) || 0), 0), '৳');
             renderRecent(regs);
         } catch (e) { console.error(e); }
+        loadEventInfo();
+    }
+
+    // ================================================================
+    //  অনুষ্ঠানের তথ্য Firebase থেকে
+    // ================================================================
+    const EVENT_INFO_DEFAULTS = { date: 'শীঘ্রই ঘোষণা করা হবে', venue: 'বিদ্যালয় প্রাঙ্গণ', tshirt: 'প্রত্যেক সদস্যকে দেওয়া হবে', fee: '৫০০ টাকা / জন' };
+    const FIREBASE_DB_URL = 'https://dokan-a264b-default-rtdb.firebaseio.com';
+
+    function updateEventInfoUI(info) {
+        const data = { ...EVENT_INFO_DEFAULTS, ...(info || {}) };
+        const elDate = document.getElementById('event-date');
+        const elVenue = document.getElementById('event-venue');
+        const elTshirt = document.getElementById('event-tshirt');
+        const elFee = document.getElementById('event-fee');
+        if (elDate) elDate.textContent = data.date || EVENT_INFO_DEFAULTS.date;
+        if (elVenue) elVenue.textContent = data.venue || EVENT_INFO_DEFAULTS.venue;
+        if (elTshirt) elTshirt.textContent = data.tshirt || EVENT_INFO_DEFAULTS.tshirt;
+        if (elFee) elFee.textContent = data.fee || EVENT_INFO_DEFAULTS.fee;
+        // আপডেট টাইমস্ট্যাম্প দেখাও
+        const statusEl = document.getElementById('eventUpdateStatus');
+        if (statusEl) {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
+            statusEl.textContent = 'সর্বশেষ আপডেট: ' + timeStr;
+        }
+    }
+
+    // Firebase SDK দিয়ে ইভেন্ট ইনফো ফেচ
+    async function fetchEventInfoFirebase() {
+        const snap = await db.ref('eventInfo').once('value');
+        if (snap.exists()) return snap.val();
+        return null;
+    }
+
+    // REST API দিয়ে ইভেন্ট ইনফো ফেচ (ফলব্যাক)
+    async function fetchEventInfoREST() {
+        const response = await fetch(FIREBASE_DB_URL + '/eventInfo.json');
+        if (!response.ok) throw new Error('REST API failed: ' + response.status);
+        const data = await response.json();
+        return data; // null হতে পারে যদি ডাটা না থাকে
+    }
+
+    // ইভেন্ট ইনফো লোড - Firebase SDK চেষ্টা, ব্যর্থ হলে REST API
+    async function loadEventInfo() {
+        try {
+            const info = await fetchEventInfoFirebase();
+            updateEventInfoUI(info);
+            return;
+        } catch (e) {
+            console.warn('Firebase SDK eventInfo fetch failed, trying REST:', e);
+        }
+        try {
+            const info = await fetchEventInfoREST();
+            updateEventInfoUI(info);
+        } catch (e2) {
+            console.error('Both Firebase SDK and REST failed for eventInfo:', e2);
+            updateEventInfoUI(null); // ডিফল্ট দেখাও
+        }
+    }
+
+    // ম্যানুয়াল রিফ্রেশ বাটন
+    async function refreshEventInfo() {
+        const btn = document.getElementById('eventRefreshBtn');
+        const loading = document.getElementById('eventInfoLoading');
+        const content = document.getElementById('eventInfoContent');
+        if (btn) btn.style.display = 'none';
+        if (loading) loading.style.display = '';
+        if (content) content.style.opacity = '0.4';
+        await loadEventInfo();
+        if (btn) btn.style.display = '';
+        if (loading) loading.style.display = 'none';
+        if (content) content.style.opacity = '1';
     }
 
     function renderRecent(regs) {
@@ -948,7 +1041,7 @@
             ['Payment Method', reg.paymentMethod || '---'],
             ['Amount (TK)', '৳' + (reg.amount || 0)],
             ['In Words', amountInWords(reg.amount)],
-            ['Received By', (reg.batchYear || '---') + ' - ' + (reg.name || '---')],
+            ['Received By', reg.receivedBy || '---'],
         ];
 
         const rows = fields.map((f, i) => `<tr><td>${f[0]}</td><td>${f[1]}</td></tr>`).join('');
@@ -1180,6 +1273,27 @@
     // ================================================================
     loadHome();
     listenNotices();
+    listenEventInfo();
+
+    // ইভেন্ট ইনফো রিয়েলটাইম + পিরিওডিক + ভিজিবিলিটি লিসেনার
+    function listenEventInfo() {
+        // ১. Firebase SDK রিয়েলটাইম লিসেনার (প্রাইমারি)
+        db.ref('eventInfo').on('value', snap => {
+            if (snap.exists()) {
+                updateEventInfoUI(snap.val());
+            }
+        }, err => {
+            console.warn('EventInfo realtime listener error:', err);
+        });
+
+        // ২. প্রতি ১০ সেকেন্ডে ফেচ (Firebase SDK + REST API ফলব্যাক)
+        setInterval(() => { loadEventInfo(); }, 10000);
+
+        // ৩. ট্যাবে ফিরে এলে রিফ্রেশ
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) loadEventInfo();
+        });
+    }
     </script>
 </body>
 </html>
